@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Infrastructure;
+using Application;
 namespace web;
 
 public class Program
@@ -18,15 +19,18 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddTransient<UserService>();
         builder.Services.AddDbContext<DatabaseContext>((options) => options.UseNpgsql("Server=localhost;Port=5432;Database=GameGate.Authorization; UserId=postgres;Password=Batonbatonbaton123;"));
-        builder.Services.AddDefaultIdentity<User>(options => 
-               {
-           
-        }).AddEntityFrameworkStores<DatabaseContext>();
+        builder.Services.AddTransient<IUserService, UserService>();
 
-        //builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-        //    .AddEntityFrameworkStores<DatabaseContext>()
-        //    .AddDefaultTokenProviders();
+        builder.Services.AddIdentityApiEndpoints<User>(options =>
+        
+        {
+
+        })
+            .AddEntityFrameworkStores<DatabaseContext>()
+            .AddDefaultTokenProviders(); // Essential for authentication
+
 
 
 
@@ -38,7 +42,6 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-        app.MapIdentityApi<User>();
 
         app.UseHttpsRedirection();
 

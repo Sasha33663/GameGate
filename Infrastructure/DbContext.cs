@@ -11,19 +11,12 @@ using System.Threading.Tasks;
 namespace Infrastructure;
 public class DatabaseContext :IdentityDbContext <User>
 {
+
     public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
     {
-        //Database.EnsureDeleted();
+        Database.EnsureDeleted();
         Database.EnsureCreated();
     }
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        base.OnModelCreating(modelBuilder);
-
-
-
-    }
-    
-
+   
 }
 
