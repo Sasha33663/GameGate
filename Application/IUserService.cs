@@ -9,4 +9,8 @@ public interface IUserService
 {
      Task UserRegisterAsync(string userName, string password,CancellationToken cancellationToken);
     Task UserLogInAsync (string userName, string password,CancellationToken cancellationToken);
+    Task UserDeleteAsync(string userName, string password, CancellationToken cancellationToken);
+    Task GiveRoleAsync(Guid userId, string roleName);
+
+
 }

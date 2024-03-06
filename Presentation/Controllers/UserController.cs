@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Presentation.Controllers;
 [ApiController]
@@ -30,6 +31,18 @@ public class UserController : Controller
     public async Task LogInAsync([FromBody]LogInDto logInDto,CancellationToken cancellationToken)
     {
         await _userService.UserLogInAsync (logInDto.UserName, logInDto.Password, cancellationToken);
+    }
+    [HttpPost("Delete")]
+    public async Task DeleteAsync([FromBody]DeleteDto deleteDto,CancellationToken cancellationToken)
+    {
+        await _userService.UserDeleteAsync(deleteDto.UserName, deleteDto.Password, cancellationToken);
+    }
+    [HttpPost("MakeRole")]
+    //[Authorize(Roles = "Admin")]
+
+    public async Task CreatRole([FromBody]RoleDto roleDto)
+    {
+        await _userService.GiveRoleAsync(roleDto.userId, roleDto.roleName);
     }
     
 }
