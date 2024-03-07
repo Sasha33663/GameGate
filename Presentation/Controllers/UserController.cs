@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Presentation.Controllers;
 [ApiController]
-[Route("api/Auth")]
+[Route("api/Auth/User")]
 public class UserController : Controller
 {
 
@@ -37,12 +37,6 @@ public class UserController : Controller
     {
         await _userService.UserDeleteAsync(deleteDto.UserName, deleteDto.Password, cancellationToken);
     }
-    [HttpPost("MakeRole")]
-    //[Authorize(Roles = "Admin")]
-
-    public async Task CreatRole([FromBody]RoleDto roleDto)
-    {
-        await _userService.GiveRoleAsync(roleDto.userId, roleDto.roleName);
-    }
+   
     
 }

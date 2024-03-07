@@ -33,10 +33,11 @@ public class UserService : IUserService
         var result = await _userManager.CreateAsync(user, password);
         if (!result.Succeeded)
         {
-            await _userManager.AddToRoleAsync(user, "Buyer");
-        }
+            await ErorrMessage(result);
 
-         await ErorrMessage(result);
+        }
+        await _userManager.AddToRoleAsync(user, "Buyer");
+
 
 
     }
@@ -54,14 +55,13 @@ public class UserService : IUserService
     public async Task ErorrMessage(IdentityResult result)
     {
         var errorMessage = "";
-        if (!result.Succeeded)
-        {
+       
             foreach (var error in result.Errors)
             {
                 errorMessage += error.Description + " "; 
             }
             throw new Exception(errorMessage);
-        }
+        
         
 
     }
@@ -83,24 +83,32 @@ public class UserService : IUserService
 
     }
 
-    public async Task GiveRoleAsync(Guid userId, string roleName)
+    public async Task MakeRoleAsync( string roleName)
+
     {
-        var user = await _userManager.FindByIdAsync(userId.ToString());
-        if (roleName == null)
-        {
-            throw new Exception("Role can't be null");
-        }
-        
-        if (roleName =="Admin"|| roleName == "Seller")
-        {
-            await _userManager.RemoveFromRoleAsync(user, "Buyer");
-            await _userManager.AddToRoleAsync(user, roleName);
-        }
-        else
+        if (roleName != "Admin" && roleName != "Seller" && roleName != "Buyer")
         {
             throw new Exception("Недопустимая роль");
         }
-       
+
+        var role = new IdentityRole(roleName);
+        await _roleManager.CreateAsync(role);
+
+
+
+    }
+    public async Task GiveRoleAsync(Guid userId, string roleName)
+    {
+        var user = await _userManager.FindByIdAsync(userId.ToString());
+        if (user == null)
+        {
+            throw new Exception("Пользователь не найден");
             
+        }
+        if (roleName != "Admin" && roleName != "Seller" && roleName != "Buyer")
+        {
+            throw new Exception("Недопустимая роль");
+        }
+        var result = await _userManager.AddToRoleAsync(user, roleName);
     }
 }

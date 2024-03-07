@@ -28,36 +28,14 @@ public class Program
         builder.Services.AddIdentityApiEndpoints<User>(options =>
 
         {
-
+            options.Password.RequiredLength = 6;
+            options.Password.RequireNonAlphanumeric = false;
         })
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<DatabaseContext>()
             .AddDefaultTokenProviders(); // Essential for authentication
 
-        using (var scope = builder.Services.BuildServiceProvider().CreateScope())
-        {
-            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            var adminRoleExists = roleManager.RoleExistsAsync("Admin").Result;
-            if (!adminRoleExists)
-            {
-                var adminRole = new IdentityRole("Admin");
-                var result = roleManager.CreateAsync(adminRole).Result;
-                if (!result.Succeeded)
-                {
-                }
-            }
-
-            var sellerRoleExists = roleManager.RoleExistsAsync("Seller").Result;
-            if (!sellerRoleExists)
-            {
-                var sellerRole = new IdentityRole("Seller");
-                var result = roleManager.CreateAsync(sellerRole).Result;
-                if (!result.Succeeded)
-                {
-                }
-            }
-        }
 
 
         var app = builder.Build();
@@ -82,4 +60,3 @@ public class Program
         app.Run();
     }
 }
-

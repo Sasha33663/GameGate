@@ -5,5 +5,4 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Presentation.Dto;
-public record RoleDto (string roleName);
-
+public record GiveRoleDto (Guid userId, string roleName);
