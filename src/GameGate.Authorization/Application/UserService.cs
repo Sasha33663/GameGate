@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -110,5 +111,9 @@ public class UserService : IUserService
             throw new Exception("Недопустимая роль");
         }
         var result = await _userManager.AddToRoleAsync(user, roleName);
+    }
+    public async Task  GetUserAsync(string userName)
+    {
+        var user =await _userManager.FindByNameAsync(userName);
     }
 }

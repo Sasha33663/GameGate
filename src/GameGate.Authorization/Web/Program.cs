@@ -24,7 +24,7 @@ public class Program
         builder.Services.AddTransient<UserService>();
         builder.Services.AddDbContext<DatabaseContext>((options) => options.UseNpgsql("Server=localhost;Port=5432;Database=GameGate.Authorization; UserId=postgres;Password=Batonbatonbaton123;"));
         builder.Services.AddTransient<IUserService, UserService>();
-       
+
         builder.Services.AddIdentityApiEndpoints<User>(options =>
 
         {
@@ -49,9 +49,9 @@ public class Program
 
         app.UseHttpsRedirection();
 
-        
-        
-       
+
+
+
         app.UseAuthorization();
 
 

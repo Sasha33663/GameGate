@@ -12,5 +12,6 @@ public interface IUserService
     Task UserDeleteAsync(string userName, string password, CancellationToken cancellationToken);
     Task MakeRoleAsync( string roleName);
     Task GiveRoleAsync (Guid userId, string roleName);
+    Task GetUserAsync (string userName);
 
 }
