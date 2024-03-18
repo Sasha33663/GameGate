@@ -6,5 +6,5 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Commands.Create;
-public  record CreateCommand (string Name,string Discription,/* byte [] GamePreview,*/ string Genre, string Kind,string Creator) :IRequest;
+public  record CreateCommand (string Name,string Discription,/* byte [] GamePreview,*/ string Genre, string Kind,string Creator, string coockie) :IRequest;
 

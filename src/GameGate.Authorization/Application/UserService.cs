@@ -112,8 +112,8 @@ public class UserService : IUserService
         }
         var result = await _userManager.AddToRoleAsync(user, roleName);
     }
-    public async Task  GetUserAsync(string userName)
+    public async Task<User>  GetUserAsync(string userName)
     {
-        var user =await _userManager.FindByNameAsync(userName);
+        return await _userManager.FindByNameAsync(userName) ;
     }
 }

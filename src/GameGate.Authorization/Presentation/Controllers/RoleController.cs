@@ -31,6 +31,5 @@ public class RoleController : Controller
     public async Task GiveRole([FromBody] GiveRoleDto giveRoleDto)
     {
         await _userService.GiveRoleAsync(giveRoleDto.userId, giveRoleDto.roleName);
-
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,6 @@ public interface IUserService
     Task UserDeleteAsync(string userName, string password, CancellationToken cancellationToken);
     Task MakeRoleAsync( string roleName);
     Task GiveRoleAsync (Guid userId, string roleName);
-    Task GetUserAsync (string userName);
+    Task <User>GetUserAsync (string userName);
 
 }

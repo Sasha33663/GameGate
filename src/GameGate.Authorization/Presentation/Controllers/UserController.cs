@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using Application;
 using Microsoft.AspNetCore.Authorization;
 using System.Threading;
+using Domain;
+using System.Collections.Immutable;
 
 namespace Presentation.Controllers;
 [ApiController]
@@ -26,6 +28,7 @@ public class UserController : Controller
     [HttpPost("Register")]
     public async Task RegisterAsync([FromBody] RegisterDto registerDto, CancellationToken cancellationToken)
     {
+
         await _userService.UserRegisterAsync(registerDto.UserName, registerDto.Password, cancellationToken);
     }
     [HttpPost("LogIn")]
@@ -41,8 +44,16 @@ public class UserController : Controller
     }
     //[Authorize(Roles ="Admin")]
     [HttpGet("GetUser")]
-    public async Task FindUserAsync([FromBody] GetUser getUser)
-    {
-        await _userService.GetUserAsync(getUser.UserName);
+    public async Task <UserDto> FindUserAsync()
+    {        
+        var foundUser =await _userService.GetUserAsync(User.Identity.Name);
+        var user = new UserDto
+        {
+            UserName = foundUser.UserName,
+            UserId = foundUser.Id,
+            PhoneNumber = foundUser.PhoneNumber,
+            Email = foundUser.Email
+        };
+        return user;
     }
 }

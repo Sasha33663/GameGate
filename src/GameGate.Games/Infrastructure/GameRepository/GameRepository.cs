@@ -17,8 +17,17 @@ public class GameRepository : IGameRepository
     }
     public async Task CreateAsync(Game game)
     {
-      await _gameDatabase.Games.AddAsync(game);
-      await _gameDatabase.SaveChangesAsync();
+     var a= await _gameDatabase.Games.AddAsync(game);
+     var b=  _gameDatabase.SaveChanges();
+    }
+    public async Task GetGameAsync (Game game)
+    {
+        await _gameDatabase.();
+     }
+    public async Task DeleteAsync(Game game)
+    {
+       _gameDatabase.Remove(game);
+       await _gameDatabase.SaveChangesAsync();
     }
 
 }

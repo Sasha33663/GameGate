@@ -12,24 +12,28 @@ public class CreateCommandHandler :IRequestHandler<CreateCommand>
 {
     private readonly IGameRepository _gameRepository;
     private readonly IAuthorizationHttpClient _authorizationHttpClient;
-    public CreateCommandHandler(IGameRepository gameRepository)
+    public CreateCommandHandler(IGameRepository gameRepository, IAuthorizationHttpClient authorizationHttpClient)
     {
         _gameRepository = gameRepository;
+        _authorizationHttpClient = authorizationHttpClient;
     } 
 
-    public Task Handle(CreateCommand request, CancellationToken cancellationToken)
+    public async Task Handle(CreateCommand request, CancellationToken cancellationToken)
     {
+        var user = await _authorizationHttpClient.GetUserAsync(request.coockie);
+        
         var newGame = new Game
         {
-            Name = request.Name,
+            GameName = request.Name,
             Description = request.Discription,
             GameId = Guid.NewGuid(),
-            UserId = ConverTo.(_authorizationHttpClient.GetUserAsync()),
-        Genre = request.Genre,
+            UserId = user.UserId,
+            Genre = request.Genre,
             Kind = request.Kind,
             Creator = request.Creator,
         };
-        return (_gameRepository.CreateAsync(newGame));
+       await _gameRepository.CreateAsync(newGame);
+        
     }
 }
 
