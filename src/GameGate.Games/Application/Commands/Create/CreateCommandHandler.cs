@@ -3,6 +3,7 @@ using Domain;
 using MediatR;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,6 @@ public class CreateCommandHandler :IRequestHandler<CreateCommand>
     public async Task Handle(CreateCommand request, CancellationToken cancellationToken)
     {
         var user = await _authorizationHttpClient.GetUserAsync(request.coockie);
-        
         var newGame = new Game
         {
             GameName = request.Name,

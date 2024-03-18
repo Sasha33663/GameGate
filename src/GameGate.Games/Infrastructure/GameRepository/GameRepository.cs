@@ -1,5 +1,6 @@
 ﻿using Application.Common.Inteefaces;
 using Domain;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
@@ -11,23 +12,26 @@ namespace Infrastructure.GameRepository;
 public class GameRepository : IGameRepository
 {
     private readonly Database _gameDatabase;
+    private readonly DbSet <Game> _gameSet;
     public GameRepository (Database database)
     {
         _gameDatabase = database;
     }
     public async Task CreateAsync(Game game)
     {
-     var a= await _gameDatabase.Games.AddAsync(game);
-     var b=  _gameDatabase.SaveChanges();
+      await _gameDatabase.Games.AddAsync(game);
+       _gameDatabase.SaveChanges();
     }
-    public async Task GetGameAsync (Game game)
+    public async Task DeleteGameByNameAsync (string? gameName)
     {
-        await _gameDatabase.();
-     }
-    public async Task DeleteAsync(Game game)
+        var result= await _gameSet.FirstOrDefaultAsync(x=>x.GameName == gameName);
+         _gameSet.Remove(result);
+    }
+    public async Task DeleteGameByIdAsync(string? gameId)
     {
-       _gameDatabase.Remove(game);
-       await _gameDatabase.SaveChangesAsync();
+        
+        var result = await _gameSet.FirstOrDefaultAsync(x => x.GameId.ToString() == gameId);
+        _gameSet.Remove(result);
     }
 
 }

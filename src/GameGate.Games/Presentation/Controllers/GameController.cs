@@ -31,7 +31,7 @@ public class GameController : Controller
     //[Authorize(Roles="Seller","Admin")]
     [HttpPost("Create")]
     public async Task CreateAsync([FromForm]CreateGameDto createGameDto, CancellationToken cancellationToken)
-    {
+       {
        var cookie = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key.StartsWith(".AspNetCore.Identity.Application"));
         if (!string.IsNullOrEmpty(cookie.Value))
         {

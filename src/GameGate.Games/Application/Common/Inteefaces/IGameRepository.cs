@@ -9,6 +9,6 @@ namespace Application.Common.Inteefaces;
 public interface IGameRepository
 {
     Task CreateAsync(Game game);
-    Task GetGameAsync(Game game);
-    Task DeleteAsync(Game game);
+    Task DeleteGameByNameAsync (string gameName);
+    Task DeleteGameByIdAsync(string gameId);
 }

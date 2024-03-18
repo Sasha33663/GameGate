@@ -16,7 +16,17 @@ public class DeleteCommandHandler : IRequestHandler<DeleteCommand>
     }
     public async Task Handle(DeleteCommand request, CancellationToken cancellationToken)
     {
-        _gameRepository.GetGameAsync(request);
-        _gameRepository.DeleteAsync(request);
+        if (request.GameName==null && request.GameId.Length>0)
+        {
+            var game =_gameRepository.DeleteGameByIdAsync(request.GameId);
+        }
+        else if (request.GameId==null && request.GameName.Length>0)
+        {
+            var game = _gameRepository.DeleteGameByNameAsync(request.GameName);
+        }
+        else if(request.GameName==null && request.GameId == null)
+        {
+            throw new Exception("The Id or Name must be filled in");
+        }
     }
 }
