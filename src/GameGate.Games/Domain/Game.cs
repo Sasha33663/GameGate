@@ -9,7 +9,8 @@ public class Game
 {
     public string GameName { get; set; }
     public string Description { get; set; }
-    public string GamePreviewUri { get; set; }
+    public string GamePreviewUrl { get; set; }
+    public string GamePreviewId { get; set; }
     public Guid GameId { get; set; }
     public string UserId { get; set; }
     public string Creator { get; set; }

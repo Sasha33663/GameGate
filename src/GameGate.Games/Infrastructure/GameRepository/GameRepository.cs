@@ -1,4 +1,5 @@
 ﻿using Application.Common.Inteefaces;
+using CloudinaryDotNet;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -12,6 +13,7 @@ namespace Infrastructure.GameRepository;
 public class GameRepository : IGameRepository
 {
     private readonly Database _gameDatabase;
+    private readonly Cloudinary
     public GameRepository (Database database)
     {
         _gameDatabase = database;

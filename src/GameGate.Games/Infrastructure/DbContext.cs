@@ -12,7 +12,7 @@ public class Database : DbContext
 
     public Database(DbContextOptions<Database> options) : base(options)
     {
-        //Database.EnsureDeleted();
+        Database.EnsureDeleted();
         Database.EnsureCreated();
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -27,5 +27,5 @@ public class Database : DbContext
         base.OnModelCreating(modelBuilder);
     }
     public DbSet<Game> Games { get; set; }
-
+    
 }

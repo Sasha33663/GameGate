@@ -5,6 +5,7 @@ using Application.Common.Inteefaces;
 using Infrastructure;
 using Infrastructure.GameRepository;
 using Infrastructure.GameRepository.HttpClients;
+using Infrastructure.ImageRepository;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Presentation.Controllers;
@@ -27,6 +28,7 @@ public class Program
        builder.Services.AddTransient<IAuthorizationHttpClient , AuthorizationHttpClient>();
         builder.Services.AddTransient<IGameRepository, GameRepository>();
         builder.Services.AddHttpClient<IAuthorizationHttpClient, AuthorizationHttpClient>();
+        builder.Services.AddTransient<IImageRepository, ImageRepository>();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 

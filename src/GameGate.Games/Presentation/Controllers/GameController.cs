@@ -2,6 +2,7 @@
 using Application.Commands.Delete;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -29,25 +30,22 @@ public class GameController : Controller
     public GameController(ISender sender) 
     {
         _sender = sender;
-        var account = new Account(
-            "dllpfv6ya",
-            "999261638724124",
-            "1vC3JrZiFNxqCgzZrqyPN0GCHRA");
-
-        _cloudinary = new Cloudinary(account);
     }
     //[Authorize(Roles="Seller","Admin")]
     [HttpPost("Create")]
-    public async Task CreateAsync([FromForm]CreateGameDto createGameDto, CancellationToken cancellationToken)
+    public async Task  CreateAsync([FromForm]CreateGameDto createGameDto, CancellationToken cancellationToken)
        {
-        var gamePreview = await UploadImageAsync(createGameDto.GamePreview);
+       
        var cookie = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key.StartsWith(".AspNetCore.Identity.Application"));
+        using var stream = createGameDto.GamePreview.OpenReadStream();
+            
         if (!string.IsNullOrEmpty(cookie.Value))
         {
            var cookieString = $"{cookie.Key}={cookie.Value}";
-            await _sender.Send(new CreateCommand(createGameDto.Name, createGameDto.Description, gamePreview, createGameDto.Genre,
+            await _sender.Send(new CreateCommand(createGameDto.Name, createGameDto.Description, createGameDto.GamePreview.FileName, stream, createGameDto.Genre,
             createGameDto.Kind, createGameDto.Creator, cookieString), cancellationToken);
         }
+        
     }
     //[Authorize(Roles="Seller","Admin")]
     [HttpPost("Delete")]
@@ -55,13 +53,5 @@ public class GameController : Controller
     {
         await _sender.Send(new DeleteCommand(deleteGameDto.GameName, deleteGameDto.GameId));
     }
-    private async Task<string> UploadImageAsync(IFormFile file)
-    {
-        var uploadParams = new ImageUploadParams()
-        {
-            File = new FileDescription(file.FileName, file.OpenReadStream())
-        };
-        var uploadResult = await _cloudinary.UploadAsync(uploadParams);
-        return uploadResult.SecureUri.ToString();
-    }
+  
 }

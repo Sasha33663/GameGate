@@ -1,4 +1,6 @@
 ﻿using Application.Common.Inteefaces;
+using CloudinaryDotNet;
+using Domain;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -10,13 +12,17 @@ namespace Application.Commands.Delete;
 public class DeleteCommandHandler : IRequestHandler<DeleteCommand>
 {
     private readonly IGameRepository _gameRepository;
-    public DeleteCommandHandler (IGameRepository gameRepository)
+    private readonly IImageRepository _imageRepository;
+    public DeleteCommandHandler (IGameRepository gameRepository, IImageRepository imageRepository)
     {
         _gameRepository = gameRepository;
+        _imageRepository = imageRepository;
     }
     public async Task Handle(DeleteCommand request, CancellationToken cancellationToken)
     {
-        await _gameRepository.GetGameAsync(request.GameId);
+       var game =await _gameRepository.GetGameAsync(request.GameId);
+       await _imageRepository.DeleteImageAsync(game.GamePreviewId);
+
         if (request.GameName==null && request.GameId.Length>0)
         {
              await _gameRepository.DeleteGameByIdAsync(request.GameId);
@@ -32,6 +38,7 @@ public class DeleteCommandHandler : IRequestHandler<DeleteCommand>
         else if (request.GameName.Length>0 && request.GameId.Length > 0)
         {
             await _gameRepository.DeleteGameByNameAsync(request.GameName);
+            
         }
     }
 }
