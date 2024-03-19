@@ -24,34 +24,34 @@ namespace Presentation.Controllers;
 [Route("api/games")]
 public class GameController : Controller
 {
-    private readonly Cloudinary _cloudinary;
     private readonly ISender _sender;
-   
-    public GameController(ISender sender) 
+
+    public GameController(ISender sender)
     {
         _sender = sender;
     }
     //[Authorize(Roles="Seller","Admin")]
     [HttpPost("Create")]
-    public async Task  CreateAsync([FromForm]CreateGameDto createGameDto, CancellationToken cancellationToken)
-       {
-       
-       var cookie = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key.StartsWith(".AspNetCore.Identity.Application"));
-        using var stream = createGameDto.GamePreview.OpenReadStream();
-            
+    public async Task CreateAsync([FromForm] CreateGameDto createGameDto, CancellationToken cancellationToken)
+    {
+        var cookie = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key.StartsWith(".AspNetCore.Identity.Application"));
+        if (createGameDto.GamePreview == null)
+        {
+            throw new Exception("Game preview cannot be empty");
+        }
+        using Stream? stream = createGameDto.GamePreview.OpenReadStream();
         if (!string.IsNullOrEmpty(cookie.Value))
         {
-           var cookieString = $"{cookie.Key}={cookie.Value}";
+            var cookieString = $"{cookie.Key}={cookie.Value}";
             await _sender.Send(new CreateCommand(createGameDto.Name, createGameDto.Description, createGameDto.GamePreview.FileName, stream, createGameDto.Genre,
             createGameDto.Kind, createGameDto.Creator, cookieString), cancellationToken);
         }
-        
     }
     //[Authorize(Roles="Seller","Admin")]
     [HttpPost("Delete")]
-    public async Task DeleteAsync([FromForm]DeleteGameDto deleteGameDto)
+    public async Task DeleteAsync([FromForm] DeleteGameDto deleteGameDto)
     {
-        await _sender.Send(new DeleteCommand(deleteGameDto.GameName, deleteGameDto.GameId));
+        await _sender.Send(new DeleteCommand(deleteGameDto.GameId));
     }
-  
+
 }

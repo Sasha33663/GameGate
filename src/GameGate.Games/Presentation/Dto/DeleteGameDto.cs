@@ -5,4 +5,4 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Presentation.Dto;
-public record DeleteGameDto (string? GameName, string? GameId);
+public record DeleteGameDto (string GameId);

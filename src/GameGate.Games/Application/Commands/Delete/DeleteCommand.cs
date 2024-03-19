@@ -6,4 +6,4 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Commands.Delete;
-public record DeleteCommand (string GameName, string GameId, string PreviewId) : IRequest;
+public record DeleteCommand (string GameId) : IRequest;

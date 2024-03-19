@@ -13,30 +13,22 @@ namespace Infrastructure.GameRepository;
 public class GameRepository : IGameRepository
 {
     private readonly Database _gameDatabase;
-    private readonly Cloudinary
-    public GameRepository (Database database)
+    public GameRepository(Database database)
     {
         _gameDatabase = database;
     }
     public async Task CreateAsync(Game game)
     {
-      await _gameDatabase.Games.AddAsync(game);
-       _gameDatabase.SaveChanges();
-    }
-    public async Task DeleteGameByNameAsync (string? gameName)
-    {
-        var result= await _gameDatabase.Games.FirstOrDefaultAsync(x=>x.GameName == gameName);
-         _gameDatabase.Remove(result);
+        await _gameDatabase.Games.AddAsync(game);
         _gameDatabase.SaveChanges();
-
     }
-    public async Task DeleteGameByIdAsync(string? gameId)
+    public async Task DeleteGameAsync(string? gameId)
     {
-        
         var result = await _gameDatabase.Games.FirstOrDefaultAsync(x => x.GameId.ToString() == gameId);
         _gameDatabase.Remove(result);
+        _gameDatabase.SaveChanges();
     }
-    public async Task <Game> GetGameAsync (string? gameId)
+    public async Task<Game> GetGameAsync(string? gameId)
     {
         var result = await _gameDatabase.Games.FirstOrDefaultAsync(x => x.GameId.ToString() == gameId);
         if (result == null)
@@ -45,5 +37,4 @@ public class GameRepository : IGameRepository
         }
         return result;
     }
-
 }
