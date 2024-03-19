@@ -26,6 +26,7 @@ public class CreateCommandHandler :IRequestHandler<CreateCommand>
         {
             GameName = request.Name,
             Description = request.Discription,
+            GamePreviewUri = request.GamePreviewUri,
             GameId = Guid.NewGuid(),
             UserId = user.UserId,
             Genre = request.Genre,

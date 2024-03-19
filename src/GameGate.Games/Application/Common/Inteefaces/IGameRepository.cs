@@ -9,6 +9,7 @@ namespace Application.Common.Inteefaces;
 public interface IGameRepository
 {
     Task CreateAsync(Game game);
-    Task DeleteGameByNameAsync (string gameName);
-    Task DeleteGameByIdAsync(string gameId);
+    Task DeleteGameByNameAsync (string? gameName);
+    Task DeleteGameByIdAsync(string? gameId);
+    Task<Game> GetGameAsync(string? gameId);
 }

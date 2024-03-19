@@ -23,7 +23,7 @@ public class Program
         {
             assembly.RegisterServicesFromAssembly(typeof(AssemblyReference).Assembly);
         });
-        builder.Services.AddDbContext<Database>((options) => options.UseNpgsql("Server=localhost;Port=5432;Database=GameGate.Games; UserId=postgres;Password=Batonbatonbaton123;"));
+        builder.Services.AddDbContext<Database>((options) => options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
        builder.Services.AddTransient<IAuthorizationHttpClient , AuthorizationHttpClient>();
         builder.Services.AddTransient<IGameRepository, GameRepository>();
         builder.Services.AddHttpClient<IAuthorizationHttpClient, AuthorizationHttpClient>();
