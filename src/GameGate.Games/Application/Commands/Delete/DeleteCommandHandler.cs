@@ -20,7 +20,7 @@ public class DeleteCommandHandler : IRequestHandler<DeleteCommand>
     }
     public async Task Handle(DeleteCommand request, CancellationToken cancellationToken)
     {
-        var game = await _gameRepository.GetGameAsync(request.GameId);
+        var game = await _gameRepository.GetGameByIdAsync(request.GameId);
         await _imageRepository.DeleteImageAsync(game.GamePreviewId);
         await _gameRepository.DeleteGameAsync(request.GameId);
     }

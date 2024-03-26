@@ -1,5 +1,7 @@
 ﻿using Application.Commands.Create;
 using Application.Commands.Delete;
+using Application.Queries.Get;
+using Application.Queries.GetAll;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Domain;
@@ -16,9 +18,6 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-
-
-
 namespace Presentation.Controllers;
 [ApiController]
 [Route("api/games")]
@@ -52,6 +51,16 @@ public class GameController : Controller
     public async Task DeleteAsync([FromForm] DeleteGameDto deleteGameDto)
     {
         await _sender.Send(new DeleteCommand(deleteGameDto.GameId));
+    }
+    [HttpGet("GetGameByName")]
+    public async Task<Game> GetGameByNameAsync(string gameName)
+    {
+       return await _sender.Send(new GetGameByNameQuerie(gameName));
+    }
+    [HttpGet ("GetAllGames")]
+    public async Task <IActionResult> GetAllGamesAsync()
+    {
+        return Json (await _sender.Send(new GetAllGamesQuerie()));
     }
 
 }

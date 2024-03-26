@@ -10,5 +10,9 @@ public interface IGameRepository
 {
     Task CreateAsync(Game game);
     Task DeleteGameAsync(string? gameId);
-    Task<Game> GetGameAsync(string? gameId);
+    Task<Game> GetGameByIdAsync(string? gameId);
+    Task<Game> GetGameByNameAsync(string? gameName);
+
+    Task <List<Game>> GetAllGamesAsync ();
+
 }

@@ -6,5 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Commands.Delete;
-public record DeleteCommand (string GameId) : IRequest ;
+namespace Application.Queries.Get;
+public record GetGameByNameQuerie(string gameName) : IRequest<Game>;
+

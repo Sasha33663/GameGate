@@ -1,4 +1,4 @@
-﻿using Domain;
+﻿using Domain.Games;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -6,5 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Commands.Delete;
-public record DeleteCommand (string GameId) : IRequest ;
+namespace Application.Queries;
+public class ViewAllGamesQuerie :IRequest <List<Game>>
+{
+}

@@ -28,13 +28,22 @@ public class GameRepository : IGameRepository
         _gameDatabase.Remove(result);
         _gameDatabase.SaveChanges();
     }
-    public async Task<Game> GetGameAsync(string? gameId)
+    public async Task<Game> GetGameByIdAsync(string? gameId)
     {
         var result = await _gameDatabase.Games.FirstOrDefaultAsync(x => x.GameId.ToString() == gameId);
         if (result == null)
         {
             throw new Exception("The game was not found");
         }
+        return result;
+    }
+    public async Task<Game> GetGameByNameAsync(string? gameName)
+    {    
+        return await _gameDatabase.Games.FirstOrDefaultAsync(x => x.GameName == gameName); 
+    }
+    public async Task <List <Game>> GetAllGamesAsync()
+    {
+      List<Game> result = _gameDatabase.Games.ToList();
         return result;
     }
 }

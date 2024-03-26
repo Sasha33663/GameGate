@@ -26,21 +26,27 @@ public class CreateCommandHandler : IRequestHandler<CreateCommand>
         var user = await _authorizationHttpClient.GetUserAsync(request.coockie);
 
         (var Id, var Url) = await _imageRepository.UploadImageAsync(request.GamePreviewName, request.GamePreview);
-
-        var newGame = new Game
+        try
         {
-            GameName = request.Name,
-            Description = request.Discription,
-            GamePreviewUrl = Url,
-            GamePreviewId = Id,
-            GameId = Guid.NewGuid(),
-            UserId = user.UserId,
-            Genre = request.Genre,
-            Kind = request.Kind,
-            Creator = request.Creator,
-        };
-        await _gameRepository.CreateAsync(newGame);
+            await _gameRepository.CreateAsync(new Game
+            {
+                GameName = request.Name,
+                Description = request.Discription,
+                GamePreviewUrl = Url,
+                GamePreviewId = Id,
+                GameId = Guid.NewGuid(),
+                UserId = user.UserId,
+                Genre = request.Genre,
+                Kind = request.Kind,
+                Creator = request.Creator,
 
+            });
+        }
+        catch(Exception ex) 
+        {
+            await _imageRepository.DeleteImageAsync(Id);
+            throw ex;
+        }
     }
 }
 
