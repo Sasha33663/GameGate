@@ -1,4 +1,4 @@
-﻿using Domain;
+﻿using Domain.Games;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -7,6 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Queries.GetAll;
-public class GetAllGamesQuerie : IRequest <List<Game>>
+public class GetAllGamesQuery : IRequest<List<Game>>
 {
 }

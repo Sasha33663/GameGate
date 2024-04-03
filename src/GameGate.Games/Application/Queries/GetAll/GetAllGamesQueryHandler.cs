@@ -8,14 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Queries.GetAll;
-public class GetAllGamesQuerieHandler : IRequestHandler<GetAllGamesQuerie, List<Game>>
+public class GetAllGamesQueryHandler : IRequestHandler<GetAllGamesQuery, List<Game>>
 {
     private readonly IGameRepository _gameRepository;
-    public GetAllGamesQuerieHandler (IGameRepository gameRepository)
+    public GetAllGamesQueryHandler(IGameRepository gameRepository)
     {
         _gameRepository = gameRepository;
     }
-    public async Task<List<Game>> Handle(GetAllGamesQuerie request, CancellationToken cancellationToken)
+    public async Task<List<Game>> Handle(GetAllGamesQuery request, CancellationToken cancellationToken)
     {
         return await _gameRepository.GetAllGamesAsync();
     }

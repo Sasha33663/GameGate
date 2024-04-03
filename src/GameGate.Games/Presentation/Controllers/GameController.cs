@@ -1,7 +1,7 @@
 ﻿using Application.Commands.Create;
 using Application.Commands.Delete;
-using Application.Queries.Get;
 using Application.Queries.GetAll;
+using Application.Queries.GetByName;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Domain;
@@ -36,14 +36,17 @@ public class GameController : Controller
         var cookie = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key.StartsWith(".AspNetCore.Identity.Application"));
         if (createGameDto.GamePreview == null)
         {
-            throw new Exception("Game preview cannot be empty");
+            throw new Exception("Game preview can't be empty");
         }
+        
         using Stream? stream = createGameDto.GamePreview.OpenReadStream();
         if (!string.IsNullOrEmpty(cookie.Value))
-        {
+        {   
             var cookieString = $"{cookie.Key}={cookie.Value}";
-            await _sender.Send(new CreateCommand(createGameDto.Name, createGameDto.Description, createGameDto.GamePreview.FileName, stream, createGameDto.Genre,
-            createGameDto.Kind, createGameDto.Creator, cookieString), cancellationToken);
+            await _sender.Send(new CreateCommand(createGameDto.Name, createGameDto.Description,
+            createGameDto.GamePreview.FileName, stream, createGameDto.Genre,
+            createGameDto.Kind, createGameDto.Creator,createGameDto.PriceMaxValue,
+            createGameDto.PriceMinValue,createGameDto.IsDirectly, cookieString), cancellationToken);
         }
     }
     //[Authorize(Roles="Seller","Admin")]
@@ -55,12 +58,12 @@ public class GameController : Controller
     [HttpGet("GetGameByName")]
     public async Task<Game> GetGameByNameAsync(string gameName)
     {
-       return await _sender.Send(new GetGameByNameQuerie(gameName));
+       return await _sender.Send(new GetGameByNameQuery(gameName));
     }
     [HttpGet ("GetAllGames")]
     public async Task <IActionResult> GetAllGamesAsync()
     {
-        return Json (await _sender.Send(new GetAllGamesQuerie()));
+        return Json (await _sender.Send(new GetAllGamesQuery()));
     }
 
 }

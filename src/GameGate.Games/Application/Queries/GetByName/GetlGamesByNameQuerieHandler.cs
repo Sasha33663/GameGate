@@ -7,15 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Queries.Get;
-public class GetGameByNameQuerieHandler : IRequestHandler<GetGameByNameQuerie, Game>
+namespace Application.Queries.GetByName;
+public class GetGameByNameQueryHandler : IRequestHandler<GetGameByNameQuery, Game>
 {
     private readonly IGameRepository _gameRepository;
-    public GetGameByNameQuerieHandler(IGameRepository gameRepository)
+    public GetGameByNameQueryHandler(IGameRepository gameRepository)
     {
         _gameRepository = gameRepository;
     }
-    public async Task<Game> Handle(GetGameByNameQuerie request, CancellationToken cancellationToken)
+    public async Task<Game> Handle(GetGameByNameQuery request, CancellationToken cancellationToken)
     {
         return await _gameRepository.GetGameByNameAsync(request.gameName);
     }

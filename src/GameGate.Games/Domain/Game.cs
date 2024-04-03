@@ -16,5 +16,7 @@ public sealed class Game
     public string Creator { get; set; }
     public string Genre { get; set; }
     public string Kind { get; set; }
+    public string Author { get; set; }
+    public GamePrice Price { get; set; }
 
 }

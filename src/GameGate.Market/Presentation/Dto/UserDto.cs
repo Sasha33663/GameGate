@@ -5,5 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Presentation.Dto;
-public sealed record  ViewAllGamesDto ();
+public sealed class UserDto
+{
 
+}
