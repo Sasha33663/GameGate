@@ -5,11 +5,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Commands\**" />
+    <EmbeddedResource Remove="Commands\**" />
+    <None Remove="Commands\**" />
+  </ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="MediatR" Version="12.2.0" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Commands\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Domain\Domain.csproj" />

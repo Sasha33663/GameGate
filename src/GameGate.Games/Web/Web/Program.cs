@@ -4,7 +4,7 @@ using Application.Common.AssemblyReferences;
 using Application.Common.Inteefaces;
 using Infrastructure;
 using Infrastructure.GameRepository;
-using Infrastructure.GameRepository.HttpClients;
+using Infrastructure.HttpClients;
 using Infrastructure.ImageRepository;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

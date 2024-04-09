@@ -1,5 +1,6 @@
 ﻿using Application.Common.Inteefaces;
 using Domain;
+using Domain.Games;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,12 @@ public class CreateCommandHandler : IRequestHandler<CreateCommand>
                 PriceMinValue = request.PriceMinValue,
                 IsDirectly = request.IsDirectly,
             };
+            var filters = new Filters
+            {
+                Genre = request.Genre,
+                Kind = request.Kind,
+                Creator = request.Creator
+            };
             await _gameRepository.CreateAsync(new Game
             {
                 GameName = request.Name,
@@ -46,9 +53,7 @@ public class CreateCommandHandler : IRequestHandler<CreateCommand>
                 GameId = Guid.NewGuid(),
                 Author = user.UserName,
                 UserId = user.UserId,
-                Genre = request.Genre,
-                Kind = request.Kind,
-                Creator = request.Creator,
+                Filters= filters,
                 Price = price
             });
         }

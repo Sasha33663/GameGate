@@ -9,11 +9,11 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.GameRepository.HttpClients;
+namespace Infrastructure.HttpClients;
 public class AuthorizationHttpClient : IAuthorizationHttpClient
 {
     private readonly HttpClient _httpClient;
-    public AuthorizationHttpClient (HttpClient httpClient)
+    public AuthorizationHttpClient(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }
@@ -34,8 +34,8 @@ public class AuthorizationHttpClient : IAuthorizationHttpClient
         var responseMessage = await _httpClient.SendAsync(content);
         responseMessage.EnsureSuccessStatusCode();
 
-        
-        var user =  await responseMessage.Content.ReadFromJsonAsync<User> ();
+
+        var user = await responseMessage.Content.ReadFromJsonAsync<User>();
         return user;
     }
 }

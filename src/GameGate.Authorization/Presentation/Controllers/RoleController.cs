@@ -19,7 +19,7 @@ public class RoleController : Controller
         _userService = userService;
     }
     [HttpPost("CreateRole")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
 
     public async Task CreateRole([FromBody] RoleDto roleDto)
     {
@@ -27,7 +27,7 @@ public class RoleController : Controller
 
     }
     [HttpPost("GiveRole")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public async Task GiveRole([FromBody] GiveRoleDto giveRoleDto)
     {
         await _userService.GiveRoleAsync(giveRoleDto.userId, giveRoleDto.roleName);

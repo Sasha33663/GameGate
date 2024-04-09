@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 namespace Application.Queries.GetAll;
 public class GetAllGamesQueryHandler : IRequestHandler<GetAllGamesQuery, List<Game>>
 {
-    private readonly IMarketHttpClient _marketHttpClient;
-    public GetAllGamesQueryHandler(IMarketHttpClient marketHttpClient)
+    private readonly IGamesHttpClient _marketHttpClient;
+    public GetAllGamesQueryHandler(IGamesHttpClient marketHttpClient)
     {
         _marketHttpClient = marketHttpClient;
     }

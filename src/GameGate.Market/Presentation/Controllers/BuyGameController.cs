@@ -1,5 +1,6 @@
 ﻿using Application.Queries.GetAll;
 using Application.Queries.GetWithFilters;
+using Domain.Games;
 using MediatR;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -38,7 +39,7 @@ public class BuyGameController : Controller
                 IsDirectly = x.Price.IsDirectly,
                 PriceMaxValue=x.Price.PriceMaxValue,
                 PriceMinValue=x.Price.PriceMinValue,
-
+                
             });
             return result.ToList();
         }   
@@ -49,10 +50,11 @@ public class BuyGameController : Controller
          
     }
     [HttpPost("GetGames")]
-    public async Task /*<List<GetGameDto?>>*/ GetGameWithFiltersAsync([FromForm]GetGameWithFiltersDto gameDto)
+    public async Task<List<Game?>> GetGameWithFiltersAsync([FromForm]GetGameWithFiltersDto gameDto)
     {
-        var game = await _sender.Send(new GetGameWithFiltersQuery(gameDto?.GameName, gameDto?.Genre, gameDto?.Creator,
-           gameDto?.Kind, gameDto?.PriceMaxValue,gameDto?.PriceMinValue,gameDto?.IsDirectly));
-        
+           var a =await _sender.Send(new GetGameWithFiltersQuery(gameDto.GameName, gameDto.Genre, gameDto.Creator,
+           gameDto.Kind, gameDto.PriceMaxValue, gameDto.PriceMinValue, gameDto.IsDirectly));
+        return a;
+     
     }
 }

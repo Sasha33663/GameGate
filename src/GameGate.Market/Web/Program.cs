@@ -1,7 +1,7 @@
 using Application.Common.AssemblyReferences;
 using Application.Common.Interfaces;
 using Infrastructure;
-using Infrastructure.MarketRepository.HttpClients;
+using Infrastructure.HttpClients;
 using Microsoft.EntityFrameworkCore;
 using Presentation.Controllers;
 
@@ -20,8 +20,8 @@ public class Program
         {
             assembly.RegisterServicesFromAssembly(typeof(AssemblyReference).Assembly);
         });
-        builder.Services.AddHttpClient<IMarketHttpClient, MarketHttpClient>();
-        builder.Services.AddTransient<IMarketHttpClient, MarketHttpClient>();
+        builder.Services.AddHttpClient<IGamesHttpClient, GamestHttpClient>();
+        builder.Services.AddTransient<IGamesHttpClient, GamestHttpClient>();
 
         builder.Services.AddDbContext<Database>((options) => options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
         var app = builder.Build();

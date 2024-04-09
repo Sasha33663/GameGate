@@ -2,6 +2,7 @@
 using Application.Commands.Delete;
 using Application.Queries.GetAll;
 using Application.Queries.GetByName;
+using Application.Queries.GetWithFIlters;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Domain;
@@ -63,7 +64,14 @@ public class GameController : Controller
     [HttpGet ("GetAllGames")]
     public async Task <IActionResult> GetAllGamesAsync()
     {
-        return Json (await _sender.Send(new GetAllGamesQuery()));
+        var a = Json(await _sender.Send(new GetAllGamesQuery()));
+        return a;
+    }
+    [HttpGet ("GetGameWithFilter")]
+    public async Task <List<Game>> GetGameWithFiltersAsync ([FromQuery]GetFiltersDto getFilters)
+    {
+        return await _sender.Send(new GetGameWithFiltersQuery(getFilters.GameName, getFilters.Creator, getFilters.Genre, getFilters.Kind,  getFilters.PriceMaxValue, getFilters.PriceMinValue ,getFilters.IsDirectly));
     }
 
 }
+

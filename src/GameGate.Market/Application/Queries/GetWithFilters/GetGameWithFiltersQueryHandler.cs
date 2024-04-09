@@ -12,29 +12,26 @@ namespace Application.Queries.GetWithFilters;
 public class GetGameWithFiltersQueryHandler : IRequestHandler<GetGameWithFiltersQuery, List<Game>>
 {
     //private readonly IMarketRepository _marketRepository;
-    private readonly IMarketHttpClient _marketHttpClient;
-    public GetGameWithFiltersQueryHandler(/*IMarketRepository marketRepository,*/ IMarketHttpClient marketHttpClient)
+    private readonly IGamesHttpClient _gamesHttpClient;
+    public GetGameWithFiltersQueryHandler(/*IMarketRepository marketRepository,*/ IGamesHttpClient gamesHttpClient)
     {
         //_marketRepository = marketRepository;
-        _marketHttpClient = marketHttpClient;
+        _gamesHttpClient = gamesHttpClient;
     }
     public async Task<List<Game>> Handle(GetGameWithFiltersQuery request, CancellationToken cancellationToken)
     {
-        var games = await _marketHttpClient.GetAllGamesAsync();
         var filteredGame = new FilteredGameDto
         {
-            GameName = request.GameName,
-            Creator = request.Creator,
-            Genre = request.Genre,
-            Kind = request.Kind,
-            PriceMaxValue = request.PriceMaxValue,
-            PriceMinValue = request.PriceMinValue,
-            IsDirectly = request.IsDirectly,
+            GameName = request?.GameName,
+            Creator = request?.Creator,
+            Genre = request?.Genre,
+            Kind = request?.Kind,
+            PriceMaxValue = request?.PriceMaxValue,
+            PriceMinValue = request?.PriceMinValue,
+            IsDirectly = request?.IsDirectly,
         };
-        throw new NotImplementedException();
-
-
+       
+        var a = await _gamesHttpClient.GetGamesWithFiltersAsync(filteredGame);
+        return a;
     }
-
-
 }

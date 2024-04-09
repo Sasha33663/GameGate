@@ -12,4 +12,5 @@ public class Game
     public string Author { get; set; }
     public Filters Filters { get; set; }
     public GamePrice Price { get; set; }
+ 
 }
