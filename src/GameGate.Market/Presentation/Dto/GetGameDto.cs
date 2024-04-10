@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Presentation.Dto;
 
-namespace Presentation.Dto;
 public sealed class GetGameDto
 {
     public string? GameName { get; set; }
@@ -17,4 +12,3 @@ public sealed class GetGameDto
     public decimal? PriceMinValue { get; set; }
     public bool? IsDirectly { get; set; }
 }
-

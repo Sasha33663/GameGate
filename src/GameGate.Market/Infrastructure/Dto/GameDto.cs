@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Infrastructure.Dto;
 
-namespace Infrastructure.Dto;
-public class GameDto
+public class GameDto  //TODO: удалить
 {
     public string GameName { get; set; }
     public string Description { get; set; }

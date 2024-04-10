@@ -1,17 +1,17 @@
+using Application;
 using Domain;
+using Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using Infrastructure;
-using Application;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
 namespace web;
+
 public class Program
 {
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        // Add services to the container.
+        // Add services to the container.  //TODO: удалить комментарий
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -26,7 +26,7 @@ public class Program
         })
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<DatabaseContext>()
-            .AddDefaultTokenProviders(); // Essential for authentication
+            .AddDefaultTokenProviders(); // Essential for authentication  //TODO: удалить комментарий
 
         var app = builder.Build();
         if (app.Environment.IsDevelopment())

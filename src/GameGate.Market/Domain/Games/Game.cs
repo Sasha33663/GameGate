@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-namespace Domain.Games;
-public class Game
+﻿namespace Domain.Games;
+
+public class Game //TODO: сделать из дтошки полноценный класс с конструктором и валидацией
 {
     public string GameName { get; set; }
     public string Description { get; set; }
@@ -12,5 +8,4 @@ public class Game
     public string Author { get; set; }
     public Filters Filters { get; set; }
     public GamePrice Price { get; set; }
- 
 }

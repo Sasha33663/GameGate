@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Presentation.Dto;
 
-namespace Presentation.Dto;
-public sealed class UserDto
+public sealed class UserDto //TODO: удалить
 {
-
 }

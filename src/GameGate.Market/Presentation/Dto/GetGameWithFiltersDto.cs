@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Presentation.Dto;
 
-namespace Presentation.Dto;
 public class GetGameWithFiltersDto
 {
     public string? GameName { get; set; }
@@ -15,4 +10,3 @@ public class GetGameWithFiltersDto
     public decimal? PriceMinValue { get; set; }
     public bool? IsDirectly { get; set; }
 }
-

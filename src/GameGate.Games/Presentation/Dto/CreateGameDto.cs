@@ -1,9 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Presentation.Dto;
 
@@ -18,6 +13,4 @@ public class CreateGameDto
     public decimal PriceMinValue { get; set; }
     public decimal PriceMaxValue { get; set; }
     public bool IsDirectly { get; set; }
-
 }
-

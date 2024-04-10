@@ -1,12 +1,9 @@
-
-using Application.Commands.Create;
 using Application.Common.AssemblyReferences;
 using Application.Common.Inteefaces;
 using Infrastructure;
 using Infrastructure.GameRepository;
 using Infrastructure.HttpClients;
 using Infrastructure.ImageRepository;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Presentation.Controllers;
 
@@ -17,15 +14,15 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        
-        // Add services to the container.
+
+        // Add services to the container.  //TODO: удалить комментарий
         builder.Services.AddControllers().AddApplicationPart(typeof(GameController).Assembly); ;
         builder.Services.AddMediatR(assembly =>
         {
             assembly.RegisterServicesFromAssembly(typeof(AssemblyReference).Assembly);
         });
         builder.Services.AddDbContext<Database>((options) => options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
-       builder.Services.AddTransient<IAuthorizationHttpClient , AuthorizationHttpClient>();
+        builder.Services.AddTransient<IAuthorizationHttpClient, AuthorizationHttpClient>();
         builder.Services.AddTransient<IGameRepository, GameRepository>();
         builder.Services.AddHttpClient<IAuthorizationHttpClient, AuthorizationHttpClient>();
         builder.Services.AddTransient<IImageRepository, ImageRepository>();
@@ -34,7 +31,7 @@ public class Program
 
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
+        // Configure the HTTP request pipeline.  //TODO: удалить комментарий
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
@@ -44,7 +41,6 @@ public class Program
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
-
 
         app.MapControllers();
 

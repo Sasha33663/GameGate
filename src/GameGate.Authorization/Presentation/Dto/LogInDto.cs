@@ -1,8 +1,2 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Presentation.Dto;
-public record LogInDto (string UserName, string Password);
+﻿namespace Presentation.Dto;
+public record LogInDto(string UserName, string Password);

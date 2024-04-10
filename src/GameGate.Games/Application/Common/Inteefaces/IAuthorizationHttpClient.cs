@@ -1,14 +1,8 @@
 ﻿using Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Application.Common.Inteefaces;
+namespace Application.Common.Inteefaces; //TODO: исправить название папки на Interfaces
+
 public interface IAuthorizationHttpClient
 {
-    Task <User> GetUserAsync(string coockie);
-
+    Task<User> GetUserAsync(string coockie);
 }

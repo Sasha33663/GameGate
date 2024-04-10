@@ -1,33 +1,31 @@
 ﻿using Application.Common.Inteefaces;
-using CloudinaryDotNet;
 using Domain;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.GameRepository;
+
 public class GameRepository : IGameRepository
 {
     private readonly Database _gameDatabase;
+
     public GameRepository(Database database)
     {
         _gameDatabase = database;
     }
+
     public async Task CreateAsync(Game game)
     {
         await _gameDatabase.Games.AddAsync(game);
         _gameDatabase.SaveChanges();
     }
+
     public async Task DeleteGameAsync(string? gameId)
     {
         var result = await _gameDatabase.Games.FirstOrDefaultAsync(x => x.GameId.ToString() == gameId);
         _gameDatabase.Remove(result);
         _gameDatabase.SaveChanges();
     }
+
     public async Task<Game> GetGameByIdAsync(string? gameId)
     {
         var result = await _gameDatabase.Games.FirstOrDefaultAsync(x => x.GameId.ToString() == gameId);
@@ -37,10 +35,12 @@ public class GameRepository : IGameRepository
         }
         return result;
     }
+
     public async Task<Game> GetGameByNameAsync(string? gameName)
     {
         return await _gameDatabase.Games.FirstOrDefaultAsync(x => x.GameName == gameName);
     }
+
     public async Task<List<Game>> GetAllGamesAsync()
     {
         List<Game> result = _gameDatabase.Games.ToList();
@@ -68,11 +68,11 @@ public class GameRepository : IGameRepository
         }
         if (priceMaxValue != null)
         {
-            query = query.Where(x => x.Price.PriceMaxValue >= priceMinValue || x.Price.PriceMaxValue >0);
+            query = query.Where(x => x.Price.PriceMaxValue >= priceMinValue || x.Price.PriceMaxValue > 0);
         }
         if (priceMinValue != null)
         {
-            query = query.Where(x => x.Price.PriceMinValue == priceMinValue | x.Price.PriceMinValue <= priceMaxValue );
+            query = query.Where(x => x.Price.PriceMinValue == priceMinValue | x.Price.PriceMinValue <= priceMaxValue);
         }
 
         return query.ToListAsync();

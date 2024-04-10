@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Games;
+﻿using Domain.Games;
 
 namespace Domain.Users;
+
 public abstract class User
 {
     public string UserName { get; set; }

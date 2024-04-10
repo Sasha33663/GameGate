@@ -1,29 +1,22 @@
 ﻿using Application.Common.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net.Http;
-using Domain.Games;
-using System.Net.Http.Json;
-using System.Text.Json.Serialization;
-using Newtonsoft.Json;
-using Infrastructure.Dto;
-using Application.Queries.GetWithFilters;
 using Application.Queries.GetWithFilters.Dto;
-using Microsoft.AspNetCore.Http.Extensions;
+using Domain.Games;
 using Domain.Users;
-using System.Net;
+using Infrastructure.Dto;
+using Microsoft.AspNetCore.Http.Extensions;
+using System.Net.Http.Json;
 
 namespace Infrastructure.HttpClients;
+
 public class GamestHttpClient : IGamesHttpClient
 {
     private readonly HttpClient _httpClient;
+
     public GamestHttpClient(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }
+
     public async Task<List<Game>> GetAllGamesAsync()
     {
         var requestMessage = "https://localhost:7037/api/games/GetAllGames";
@@ -49,6 +42,7 @@ public class GamestHttpClient : IGamesHttpClient
 
         return result.ToList();
     }
+
     public async Task<List<Game>> GetGamesWithFiltersAsync(FilteredGameDto filteredGame)
     {
         var requestMessage = "https://localhost:7037/api/games/GetGameWithFilter";
@@ -81,6 +75,7 @@ public class GamestHttpClient : IGamesHttpClient
         });
         return result.ToList();
     }
+
     public async Task<Game> GetGameByNameAsync(string gameName)
     {
         var requestMessage = "https://localhost:7037/api/games/GetGameByName";

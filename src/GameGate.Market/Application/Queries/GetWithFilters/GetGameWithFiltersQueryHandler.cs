@@ -2,22 +2,20 @@
 using Application.Queries.GetWithFilters.Dto;
 using Domain.Games;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Queries.GetWithFilters;
+
 public class GetGameWithFiltersQueryHandler : IRequestHandler<GetGameWithFiltersQuery, List<Game>>
 {
-    //private readonly IMarketRepository _marketRepository;
+    //private readonly IMarketRepository _marketRepository;  //TODO: удалить комментарий
     private readonly IGamesHttpClient _gamesHttpClient;
-    public GetGameWithFiltersQueryHandler(/*IMarketRepository marketRepository,*/ IGamesHttpClient gamesHttpClient)
+
+    public GetGameWithFiltersQueryHandler(/*IMarketRepository marketRepository,*/ IGamesHttpClient gamesHttpClient)  //TODO: удалить комментарий
     {
-        //_marketRepository = marketRepository;
+        //_marketRepository = marketRepository;  //TODO: удалить комментарий
         _gamesHttpClient = gamesHttpClient;
     }
+
     public async Task<List<Game>> Handle(GetGameWithFiltersQuery request, CancellationToken cancellationToken)
     {
         var filteredGame = new FilteredGameDto
@@ -30,7 +28,7 @@ public class GetGameWithFiltersQueryHandler : IRequestHandler<GetGameWithFilters
             PriceMinValue = request?.PriceMinValue,
             IsDirectly = request?.IsDirectly,
         };
-       
+
         var a = await _gamesHttpClient.GetGamesWithFiltersAsync(filteredGame);
         return a;
     }
