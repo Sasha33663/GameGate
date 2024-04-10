@@ -39,7 +39,6 @@ public class GameController : Controller
         {
             throw new Exception("Game preview can't be empty");
         }
-        
         using Stream? stream = createGameDto.GamePreview.OpenReadStream();
         if (!string.IsNullOrEmpty(cookie.Value))
         {   

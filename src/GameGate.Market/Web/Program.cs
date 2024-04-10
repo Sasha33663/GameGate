@@ -2,6 +2,7 @@ using Application.Common.AssemblyReferences;
 using Application.Common.Interfaces;
 using Infrastructure;
 using Infrastructure.HttpClients;
+using Infrastructure.MarketRepository;
 using Microsoft.EntityFrameworkCore;
 using Presentation.Controllers;
 
@@ -22,7 +23,7 @@ public class Program
         });
         builder.Services.AddHttpClient<IGamesHttpClient, GamestHttpClient>();
         builder.Services.AddTransient<IGamesHttpClient, GamestHttpClient>();
-
+        builder.Services.AddTransient<IMarketRepository,MarketRepository>();
         builder.Services.AddDbContext<Database>((options) => options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
         var app = builder.Build();
         if (app.Environment.IsDevelopment())

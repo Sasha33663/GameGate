@@ -25,16 +25,12 @@ public class AuthorizationHttpClient : IAuthorizationHttpClient
             Method = HttpMethod.Get,
             RequestUri = new Uri(requestMessage)
         };
-
         if (!string.IsNullOrEmpty(cookie))
         {
             content.Headers.Add("Cookie", cookie);
         }
-
         var responseMessage = await _httpClient.SendAsync(content);
         responseMessage.EnsureSuccessStatusCode();
-
-
         var user = await responseMessage.Content.ReadFromJsonAsync<User>();
         return user;
     }

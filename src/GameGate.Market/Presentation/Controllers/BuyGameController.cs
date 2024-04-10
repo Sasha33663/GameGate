@@ -52,9 +52,14 @@ public class BuyGameController : Controller
     [HttpPost("GetGames")]
     public async Task<List<Game?>> GetGameWithFiltersAsync([FromForm]GetGameWithFiltersDto gameDto)
     {
-           var a =await _sender.Send(new GetGameWithFiltersQuery(gameDto.GameName, gameDto.Genre, gameDto.Creator,
-           gameDto.Kind, gameDto.PriceMaxValue, gameDto.PriceMinValue, gameDto.IsDirectly));
-        return a;
-     
+        return await _sender.Send(new GetGameWithFiltersQuery(gameDto.GameName, gameDto.Genre, gameDto.Creator,
+        gameDto.Kind, gameDto.PriceMaxValue, gameDto.PriceMinValue, gameDto.IsDirectly));
+    }
+    [HttpPost("MakeOrder")]
+    public async Task <IActionResult> MakeOrderAsync([FromBody]BuyGameDto buyGameDto)
+    {
+        var cookie = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key.StartsWith(".AspNetCore.Identity.Application"));
+        var cookieString = $"{cookie.Key}={cookie.Value}";
+       return Json ( await _sender.Send(new BuyGameCommand(buyGameDto.GameName, buyGameDto.Bid,cookieString)));
     }
 }
