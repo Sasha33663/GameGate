@@ -14,5 +14,6 @@ public interface IUserService
 
     Task GiveRoleAsync(Guid userId, string roleName);
 
-    Task<User> GetUserAsync(string userName);
+    Task<User> GetUserByNameAsync(string userName);
+    Task<User> GetUserAsync(string userId);
 }

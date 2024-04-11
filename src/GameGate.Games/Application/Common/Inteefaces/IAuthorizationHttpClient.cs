@@ -1,6 +1,6 @@
 ﻿using Domain;
 
-namespace Application.Common.Inteefaces; //TODO: исправить название папки на Interfaces
+namespace Application.Common.Intefaces;
 
 public interface IAuthorizationHttpClient
 {

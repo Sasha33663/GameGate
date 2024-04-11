@@ -1,21 +1,18 @@
 ﻿using Application.Common.Interfaces;
-using Application.Queries.GetWithFilters.Dto;
+using Application.Queries.Games.GetWithFilters.Dto;
 using Domain.Games;
 using MediatR;
 
-namespace Application.Queries.GetWithFilters;
+namespace Application.Queries.Games.GetWithFilters;
 
 public class GetGameWithFiltersQueryHandler : IRequestHandler<GetGameWithFiltersQuery, List<Game>>
 {
-    //private readonly IMarketRepository _marketRepository;  //TODO: удалить комментарий
     private readonly IGamesHttpClient _gamesHttpClient;
 
-    public GetGameWithFiltersQueryHandler(/*IMarketRepository marketRepository,*/ IGamesHttpClient gamesHttpClient)  //TODO: удалить комментарий
+    public GetGameWithFiltersQueryHandler(IGamesHttpClient gamesHttpClient)
     {
-        //_marketRepository = marketRepository;  //TODO: удалить комментарий
         _gamesHttpClient = gamesHttpClient;
     }
-
     public async Task<List<Game>> Handle(GetGameWithFiltersQuery request, CancellationToken cancellationToken)
     {
         var filteredGame = new FilteredGameDto

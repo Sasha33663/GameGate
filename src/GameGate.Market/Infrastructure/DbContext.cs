@@ -16,6 +16,7 @@ public class Database : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Buyer>().HasKey(x => x.UserId);
+        modelBuilder.Entity<Seller>().HasKey(x => x.UserId);
         modelBuilder.Entity<Order>().HasKey(x => x.OrderId);
         modelBuilder.Entity<Game>().HasKey(x => x.GameName);
         modelBuilder.Entity<Game>().OwnsOne(x => x.Filters);
@@ -25,5 +26,6 @@ public class Database : DbContext
     }
 
     public DbSet<Buyer> Buyers { get; set; }
+    public DbSet<Seller> Sellers { get; set; }
     public DbSet<Order> Orders { get; set; }
 }

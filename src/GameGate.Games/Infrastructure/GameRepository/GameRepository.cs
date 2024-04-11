@@ -1,4 +1,4 @@
-﻿using Application.Common.Inteefaces;
+﻿using Application.Common.Intefaces;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 
@@ -76,5 +76,16 @@ public class GameRepository : IGameRepository
         }
 
         return query.ToListAsync();
+    }
+    public void DeleteGameByName(string gameName)
+    {
+       var game= _gameDatabase.Games.FirstOrDefault(x => x.GameName == gameName);
+        _gameDatabase.Games.Remove(game);
+        _gameDatabase.SaveChanges();
+    }
+
+    public List<Game> GetGamesById(string authorId)
+    {
+        return _gameDatabase.Games.Where(x=>x.AuthorId == authorId).ToList();
     }
 }

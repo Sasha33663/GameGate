@@ -1,5 +1,5 @@
 using Application.Common.AssemblyReferences;
-using Application.Common.Inteefaces;
+using Application.Common.Intefaces;
 using Infrastructure;
 using Infrastructure.GameRepository;
 using Infrastructure.HttpClients;
@@ -21,7 +21,7 @@ public class Program
         {
             assembly.RegisterServicesFromAssembly(typeof(AssemblyReference).Assembly);
         });
-        builder.Services.AddDbContext<Database>((options) => options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
+        builder.Services.AddDbContext<Database>((options) => options.UseNpgsql(builder.Configuration.GetConnectionString("Database")), ServiceLifetime.Transient);
         builder.Services.AddTransient<IAuthorizationHttpClient, AuthorizationHttpClient>();
         builder.Services.AddTransient<IGameRepository, GameRepository>();
         builder.Services.AddHttpClient<IAuthorizationHttpClient, AuthorizationHttpClient>();

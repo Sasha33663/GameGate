@@ -1,4 +1,4 @@
-﻿using Application.Common.Inteefaces;
+﻿using Application.Common.Intefaces;
 using Domain;
 using Domain.Games;
 using MediatR;
@@ -47,8 +47,8 @@ public class CreateCommandHandler : IRequestHandler<CreateCommand>
                 GamePreviewUrl = Url,
                 GamePreviewId = Id,
                 GameId = Guid.NewGuid(),
-                Author = user.UserName,
-                UserId = user.UserId,
+                AuthorName = user.UserName,
+                AuthorId = user.UserId,
                 Filters = filters,
                 Price = price
             });

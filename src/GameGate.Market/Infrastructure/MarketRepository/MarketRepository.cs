@@ -44,8 +44,49 @@ public class MarketRepository : IMarketRepository
         return order;
     }
 
-    public List<Order> GetOrders(string sellerName)
+    public List<Order?> GetOrdersByName(string sellerName)
     {
-        return _marketDatabase.Orders.Where(x => x.Seller == sellerName).ToList();
+        return _marketDatabase.Orders.Where(x => x.SellerName == sellerName).ToList();
     }
+
+    public void DeleteOrder(Guid orderId)
+    {
+        var order = _marketDatabase.Orders.FirstOrDefault(x => x.OrderId == orderId);
+        _marketDatabase.Orders.Remove(order);
+        _marketDatabase.SaveChanges();
+    }
+
+    public Order GetOrdersById(Guid orderId)
+    {
+        return  _marketDatabase.Orders.FirstOrDefault(x => x.OrderId == orderId);
+    }
+
+    public Buyer GetBuyerById(string buyerId)
+    {
+        var user= _marketDatabase.Buyers.FirstOrDefault(x => x.UserId == buyerId);
+        var buyer =new Buyer
+        {
+            UserId = user.UserId,
+            BoughtGames = user.BoughtGames,
+            Money = user.Money,
+            UserName = user.UserName,
+            Email = user.Email,
+            Games = user.Games,
+            PhoneNumber = user.PhoneNumber,
+            Role = user.Role,
+            
+        };
+        return buyer;
+    }
+    public Task CreateSellerAsync(Seller user)
+    {
+        _marketDatabase.Sellers.Add(user);
+        return Task.CompletedTask;
+    }
+    public Seller GetSeller(string authorId)
+    {
+        return _marketDatabase.Sellers.FirstOrDefault(x => x.UserId == authorId);
+    }
+
+   
 }

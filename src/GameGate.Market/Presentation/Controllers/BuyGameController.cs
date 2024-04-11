@@ -1,7 +1,12 @@
-﻿using Application.Queries.GetAll;
-using Application.Queries.GetWithFilters;
+﻿using Application.Commands;
+using Application.Commands.MakeOrder;
+using Application.Queries.Games.GetAll;
+using Application.Queries.Games.GetWithFilters;
+using Application.Queries.Orders;
+using Domain;
 using Domain.Games;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Dto;
 
@@ -22,7 +27,7 @@ public class BuyGameController : Controller
     public async Task<List<GetGameDto>> ViewAllGamesAsync()
     {
         var game = await _sender.Send(new GetAllGamesQuery());
-        try //TODO: убрать try...catch
+        try 
         {
             var result = game.Select(x => new GetGameDto
             {
@@ -44,7 +49,7 @@ public class BuyGameController : Controller
         }
     }
 
-    //TODO: Эта апишка - то же самое, что и api/games/getgamewithfilter - значит она не нужна?
+   
     [HttpPost("GetGames")]
     public async Task<List<Game?>> GetGameWithFiltersAsync([FromForm] GetGameWithFiltersDto gameDto)
     {
@@ -53,10 +58,26 @@ public class BuyGameController : Controller
     }
 
     [HttpPost("MakeOrder")]
-    public async Task<IActionResult> MakeOrderAsync([FromBody] BuyGameDto buyGameDto)
+    public async Task<IActionResult> MakeOrderAsync([FromForm] BuyGameDto buyGameDto)
     {
         var cookie = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key.StartsWith(".AspNetCore.Identity.Application"));
         var cookieString = $"{cookie.Key}={cookie.Value}";
-        return Json(await _sender.Send(new BuyGameCommand(buyGameDto.GameName, buyGameDto.Bid, cookieString)));
+        return Json(await _sender.Send(new MakeOrderCommand(buyGameDto.GameName, buyGameDto.Bid, cookieString)));
     }
+    //[Authorize(Roles = "Seller")]
+    [HttpGet("GetMyOrders")]
+    public async Task <List<Order?>> GetOrdersAsync()
+    {
+        var cookie = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key.StartsWith(".AspNetCore.Identity.Application"));
+        var cookieString = $"{cookie.Key}={cookie.Value}";
+        return await _sender.Send(new GetMyOrdersQuery(cookieString));
+    }
+    //[Authorize(Roles = "Seller")]
+
+    [HttpPost("SellGame")]
+    public async Task SelllGameAsync([FromForm]SellGameDto sellGameDto)
+    {
+        await _sender.Send(new SellGameCommand(sellGameDto.OrderId)); 
+    }
+    
 }

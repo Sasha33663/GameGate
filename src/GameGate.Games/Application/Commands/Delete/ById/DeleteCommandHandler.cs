@@ -1,7 +1,7 @@
-﻿using Application.Common.Inteefaces;
+﻿using Application.Common.Intefaces;
 using MediatR;
 
-namespace Application.Commands.Delete;
+namespace Application.Commands.Delete.ById;
 
 public class DeleteCommandHandler : IRequestHandler<DeleteCommand>
 {
@@ -17,7 +17,8 @@ public class DeleteCommandHandler : IRequestHandler<DeleteCommand>
     public async Task Handle(DeleteCommand request, CancellationToken cancellationToken)
     {
         var game = await _gameRepository.GetGameByIdAsync(request.GameId);
-        await _imageRepository.DeleteImageAsync(game.GamePreviewId);
-        await _gameRepository.DeleteGameAsync(request.GameId);
+        var deletImg = _imageRepository.DeleteImageAsync(game.GamePreviewId);
+        var deletGame = _gameRepository.DeleteGameAsync(request.GameId);
+        await Task.WhenAll(deletGame, deletImg);
     }
 }

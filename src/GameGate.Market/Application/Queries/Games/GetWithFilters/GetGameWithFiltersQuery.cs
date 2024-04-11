@@ -1,7 +1,7 @@
 ﻿using Domain.Games;
 using MediatR;
 
-namespace Application.Queries.GetWithFilters;
+namespace Application.Queries.Games.GetWithFilters;
 public sealed record GetGameWithFiltersQuery
 (
      string? GameName,

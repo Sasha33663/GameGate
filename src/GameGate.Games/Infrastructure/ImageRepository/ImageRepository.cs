@@ -1,4 +1,4 @@
-﻿using Application.Common.Inteefaces;
+﻿using Application.Common.Intefaces;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 
@@ -6,9 +6,9 @@ namespace Infrastructure.ImageRepository;
 
 public class ImageRepository : IImageRepository
 {
-    private readonly Cloudinary _cloudinary; //TODO: сделать статистическим
+    private readonly Cloudinary _cloudinary; 
 
-    public ImageRepository() //TODO: соответственно тоже сделать статистическим
+    public ImageRepository() 
     {
         var account = new Account(
            "dllpfv6ya",

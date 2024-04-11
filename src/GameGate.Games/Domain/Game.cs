@@ -9,8 +9,8 @@ public sealed class Game
     public string GamePreviewUrl { get; set; }
     public string GamePreviewId { get; set; }
     public Guid GameId { get; set; }
-    public string UserId { get; set; }
-    public string Author { get; set; }
+    public string AuthorId { get; set; }
+    public string AuthorName { get; set; }
     public Filters Filters { get; set; }
     public GamePrice Price { get; set; }
 }

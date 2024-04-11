@@ -1,4 +1,4 @@
-﻿namespace Application.Queries.GetWithFilters.Dto;
+﻿namespace Application.Queries.Games.GetWithFilters.Dto;
 
 public class FilteredGameDto
 {

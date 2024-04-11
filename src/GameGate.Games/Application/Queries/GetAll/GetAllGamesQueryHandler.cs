@@ -1,4 +1,4 @@
-﻿using Application.Common.Inteefaces;
+﻿using Application.Common.Intefaces;
 using Domain;
 using MediatR;
 

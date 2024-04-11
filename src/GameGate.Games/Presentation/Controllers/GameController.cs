@@ -1,5 +1,6 @@
 ﻿using Application.Commands.Create;
 using Application.Commands.Delete;
+using Application.Commands.Delete.ById;
 using Application.Queries.GetAll;
 using Application.Queries.GetByName;
 using Application.Queries.GetWithFIlters;
@@ -42,8 +43,8 @@ public class GameController : Controller
         }
     }
 
-    //[Authorize(Roles="Seller","Admin")] //TODO: удалить комментарий
-    [HttpPost("Delete")]
+    //[Authorize(Roles="Seller","Admin")] 
+    [HttpDelete("DeleteById")]
     public async Task DeleteAsync([FromForm] DeleteGameDto deleteGameDto)
     {
         await _sender.Send(new DeleteCommand(deleteGameDto.GameId));
@@ -52,19 +53,28 @@ public class GameController : Controller
     [HttpGet("GetGameByName")]
     public async Task<Game> GetGameByNameAsync(string gameName)
     {
-        return await _sender.Send(new GetGameByNameQuery(gameName));
+        var a = await _sender.Send(new GetGameByNameQuery(gameName));
+        return a;
     }
 
     [HttpGet("GetAllGames")]
     public async Task<IActionResult> GetAllGamesAsync()
     {
-        var a = Json(await _sender.Send(new GetAllGamesQuery()));
-        return a;
+        return Json(await _sender.Send(new GetAllGamesQuery()));       
     }
-
     [HttpGet("GetGameWithFilter")]
     public async Task<List<Game>> GetGameWithFiltersAsync([FromQuery] GetFiltersDto getFilters)
     {
         return await _sender.Send(new GetGameWithFiltersQuery(getFilters.GameName, getFilters.Creator, getFilters.Genre, getFilters.Kind, getFilters.PriceMaxValue, getFilters.PriceMinValue, getFilters.IsDirectly));
+    }
+    [HttpDelete("DeleteByName")]
+    public async Task DeleteAsync([FromQuery] string gameName)
+    {
+        await _sender.Send(new DeleteByNameCommand(gameName));
+    }
+    [HttpGet("GetGameByAuthor")]
+    public async Task<IActionResult> GetGamesByAuthorIdAsync([FromQuery]string authorId)
+    {
+        return Json(await _sender.Send(new GetGamesByAuthorIdQuery(authorId)));
     }
 }

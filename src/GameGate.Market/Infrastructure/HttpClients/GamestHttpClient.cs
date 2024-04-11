@@ -1,10 +1,11 @@
 ﻿using Application.Common.Interfaces;
-using Application.Queries.GetWithFilters.Dto;
+using Application.Queries.Games.GetWithFilters.Dto;
 using Domain.Games;
 using Domain.Users;
 using Infrastructure.Dto;
 using Microsoft.AspNetCore.Http.Extensions;
 using System.Net.Http.Json;
+using System.Runtime.InteropServices;
 
 namespace Infrastructure.HttpClients;
 
@@ -16,7 +17,6 @@ public class GamestHttpClient : IGamesHttpClient
     {
         _httpClient = httpClient;
     }
-
     public async Task<List<Game>> GetAllGamesAsync()
     {
         var requestMessage = "https://localhost:7037/api/games/GetAllGames";
@@ -34,7 +34,7 @@ public class GamestHttpClient : IGamesHttpClient
         {
             GameName = x.GameName,
             Description = x.Description,
-            Author = x.Author,
+            AuthorName = x.AuthorName,
             GamePreviewUrl = x.GamePreviewUrl,
             Filters = x.Filters,
             Price = x.Price,
@@ -42,7 +42,6 @@ public class GamestHttpClient : IGamesHttpClient
 
         return result.ToList();
     }
-
     public async Task<List<Game>> GetGamesWithFiltersAsync(FilteredGameDto filteredGame)
     {
         var requestMessage = "https://localhost:7037/api/games/GetGameWithFilter";
@@ -69,14 +68,13 @@ public class GamestHttpClient : IGamesHttpClient
         {
             GameName = x.GameName,
             Description = x.Description,
-            Author = x.Author,
+            AuthorName = x.AuthorName,
             Filters = x.Filters,
             Price = x.Price,
         });
         return result.ToList();
     }
-
-    public async Task<Game> GetGameByNameAsync(string gameName)
+    public  async Task<Game> GetGameByNameAsync(string gameName)
     {
         var requestMessage = "https://localhost:7037/api/games/GetGameByName";
         var query = new Dictionary<string, string>
@@ -95,30 +93,53 @@ public class GamestHttpClient : IGamesHttpClient
         return jsonResponse;
     }
 
-    public async Task<Buyer> GetUserAsync(string cookie)
+    public async Task DeleteGameAsync(string gameName)
     {
-        var requestMessage = "http://localhost:5134/api/Auth/User/GetUser";
+        var requestMessage = "https://localhost:7037/api/games/DeleteByName";
+        var query = new Dictionary<string, string>
+        {
+            ["GameName"] = gameName
+        };
+        var uri = requestMessage + new QueryBuilder(query);
         var content = new HttpRequestMessage
         {
             Method = HttpMethod.Get,
-            RequestUri = new Uri(requestMessage)
+            RequestUri = new Uri(uri)
         };
-        if (!string.IsNullOrEmpty(cookie))
+        var responseMessage = await _httpClient.SendAsync(content);
+        responseMessage.EnsureSuccessStatusCode();   
+    }
+
+    public async Task <List<Game>> GetGamesByAuthor(string authorId)
+    {
+        var requestMessage = "https://localhost:7037/api/games/GetGameByAuthor";
+        var query = new Dictionary<string, string?>
         {
-            content.Headers.Add("Cookie", cookie);
-        }
+            ["authorId"] = authorId
+        };
+        var uri = requestMessage + new QueryBuilder(query);
+        var content = new HttpRequestMessage
+        {
+            Method = HttpMethod.Get,
+            RequestUri = new Uri(uri)
+        };
         var responseMessage = await _httpClient.SendAsync(content);
         responseMessage.EnsureSuccessStatusCode();
-        var userDto = await responseMessage.Content.ReadFromJsonAsync<UserDto>();
-        return new Buyer
+        var a = await responseMessage.Content.ReadAsStringAsync();
+        var jsonResponse = await responseMessage.Content.ReadFromJsonAsync<IEnumerable<Game>>();
+        var result = jsonResponse.Select(x => new Game
         {
-            UserName = userDto.UserName,
-            UserId = userDto.UserId,
-            Games = [],
-            Money = 0,
-            BoughtGames = [],
-            Email = userDto?.Email,
-            PhoneNumber = userDto?.PhoneNumber,
-        };
+            GameName = x.GameName,
+            Description = x.Description,
+            AuthorId = x.AuthorId,
+            GameId = x.GameId,
+            GamePreviewUrl = x.GamePreviewUrl,
+            AuthorName = x.AuthorName,
+            Filters = x.Filters,
+            Price = x.Price,
+        });
+        return result.ToList();
     }
+
+    
 }

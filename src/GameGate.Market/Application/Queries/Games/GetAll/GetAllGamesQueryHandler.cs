@@ -2,7 +2,7 @@
 using Domain.Games;
 using MediatR;
 
-namespace Application.Queries.GetAll;
+namespace Application.Queries.Games.GetAll;
 
 public class GetAllGamesQueryHandler : IRequestHandler<GetAllGamesQuery, List<Game>>
 {

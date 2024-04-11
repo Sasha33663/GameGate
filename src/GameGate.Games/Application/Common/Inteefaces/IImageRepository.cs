@@ -1,4 +1,4 @@
-﻿namespace Application.Common.Inteefaces;
+﻿namespace Application.Common.Intefaces;
 
 public interface IImageRepository
 {

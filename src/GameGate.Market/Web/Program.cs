@@ -13,7 +13,7 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        // Add services to the container.  //TODO: удалить комментарий
+
         builder.Services.AddControllers().AddApplicationPart(typeof(BuyGameController).Assembly); ;
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -23,8 +23,10 @@ public class Program
         });
         builder.Services.AddHttpClient<IGamesHttpClient, GamestHttpClient>();
         builder.Services.AddTransient<IGamesHttpClient, GamestHttpClient>();
+        builder.Services.AddHttpClient<IAuthHttpClient, AuthHttpClient>();
+        builder.Services.AddTransient<IAuthHttpClient, AuthHttpClient>();
         builder.Services.AddTransient<IMarketRepository, MarketRepository>();
-        builder.Services.AddDbContext<Database>((options) => options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
+        builder.Services.AddDbContext<Database>((options) => options.UseNpgsql(builder.Configuration.GetConnectionString("Database")), ServiceLifetime.Transient  );
         var app = builder.Build();
         if (app.Environment.IsDevelopment())
         {

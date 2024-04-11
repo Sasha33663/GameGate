@@ -1,6 +1,6 @@
 ﻿using Domain;
 
-namespace Application.Common.Inteefaces;
+namespace Application.Common.Intefaces;
 
 public interface IGameRepository
 {
@@ -20,5 +20,7 @@ public interface IGameRepository
      string? kind,
      decimal? priceMaxValue,
      decimal? priceMinValue,
-     bool? isDirectly); //TODO: объеденить параметры в класс 
+     bool? isDirectly);
+    void DeleteGameByName(string gameName);
+    List<Game> GetGamesById(string authorId);
 }

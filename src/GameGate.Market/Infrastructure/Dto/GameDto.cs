@@ -1,6 +1,6 @@
 ﻿namespace Infrastructure.Dto;
 
-public class GameDto  //TODO: удалить
+public class GameDto  
 {
     public string GameName { get; set; }
     public string Description { get; set; }
