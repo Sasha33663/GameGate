@@ -12,8 +12,14 @@ public class GetOrdersByNameQueryHandler :IRequestHandler<GetOrdersByNameQuery, 
 {
     private readonly IMarketRepository _marketRepository;
 
-    public async Task<List<Order?>> Handle(GetOrdersByNameQuery request, CancellationToken cancellationToken)
+    public GetOrdersByNameQueryHandler(IMarketRepository marketRepository)
     {
-        return _marketRepository.GetOrdersByName(request.Name);
+        _marketRepository = marketRepository;
+    }
+
+    public  async Task<List<Order?>> Handle(GetOrdersByNameQuery request, CancellationToken cancellationToken)
+    {
+        var a = await _marketRepository.GetOrdersByName(request.Name);
+        return a;
     }
 }

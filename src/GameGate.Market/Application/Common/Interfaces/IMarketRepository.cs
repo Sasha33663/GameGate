@@ -9,7 +9,7 @@ public interface IMarketRepository
 
     Task<Order> CreateOrderAsync(Order order);
 
-    List<Order?> GetOrdersByName(string sellerName);
+   Task < List<Order?>> GetOrdersByName(string sellerName);
     Order GetOrdersById(Guid orderId);
     Buyer GetBuyer(string userId);
     void DeleteOrder(Guid orderId);

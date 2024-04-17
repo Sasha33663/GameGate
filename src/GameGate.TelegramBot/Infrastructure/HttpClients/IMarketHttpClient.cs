@@ -10,5 +10,5 @@ public interface IMarketHttpClient
     Task<Game> GetGameByNameAsync(string gameName);
     Task DeleteGameAsync(string gameName);
     Task<List<Game>> GetGamesByAuthor(string authorId);
-    Task<List<Order>> GetMyOrdersAsync(string Name);
+    Task<List<Order?>> GetMyOrdersAsync(string Name);
 }

@@ -42,7 +42,7 @@ public class MarketRepository : IMarketRepository
         return order;
     }
 
-    public List<Order?> GetOrdersByName(string sellerName)
+    public async Task <List<Order?>> GetOrdersByName(string sellerName)
     {
         return _marketDatabase.Orders.Where(x => x.SellerName == sellerName).ToList();
     }

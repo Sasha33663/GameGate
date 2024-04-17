@@ -107,7 +107,7 @@ public class MarketHttpClient : IMarketHttpClient
         return result.ToList();
     }
 
-    public async Task <List<Order>>  GetMyOrdersAsync(string name)
+    public async Task <List<Order?>>  GetMyOrdersAsync(string name)
     {
         var requestMessage = "https://localhost:7061/api/market/buy/GetOrdersByName";
         var query = new Dictionary<string, string?>
