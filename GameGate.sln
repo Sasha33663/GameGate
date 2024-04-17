@@ -31,15 +31,25 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "src\GameGate.Games\W
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GameGate.Market", "GameGate.Market", "{E9B17463-8585-4A1B-AE8E-BAE6210D3094}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\GameGate.Market\Application\Application.csproj", "{95F937DA-7BF8-4D9E-9CEE-49B508705B5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "src\GameGate.Market\Application\Application.csproj", "{95F937DA-7BF8-4D9E-9CEE-49B508705B5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\GameGate.Market\Domain\Domain.csproj", "{D0245476-8BD1-4E5C-B236-90A6F26C816F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\GameGate.Market\Domain\Domain.csproj", "{D0245476-8BD1-4E5C-B236-90A6F26C816F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "src\GameGate.Market\Infrastructure\Infrastructure.csproj", "{D043B33B-9667-4C14-8998-2FF8AC9F367F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\GameGate.Market\Infrastructure\Infrastructure.csproj", "{D043B33B-9667-4C14-8998-2FF8AC9F367F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation", "src\GameGate.Market\Presentation\Presentation.csproj", "{16F91AC7-AD00-4D92-B006-091878BE9690}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation", "src\GameGate.Market\Presentation\Presentation.csproj", "{16F91AC7-AD00-4D92-B006-091878BE9690}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "src\GameGate.Market\Web\Web.csproj", "{8A478036-6BCA-498A-8CB4-ACF321FCB27D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "src\GameGate.Market\Web\Web.csproj", "{8A478036-6BCA-498A-8CB4-ACF321FCB27D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GameGate.TelegramBot", "GameGate.TelegramBot", "{AB76CFF1-30E9-4E7F-9CF9-214982C8F925}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "src\GameGate.TelegramBot\Infrastructure\Infrastructure.csproj", "{BECA35A0-CE60-46DB-B66D-6A11970B7E83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\GameGate.TelegramBot\Domain\Domain.csproj", "{86B5057C-8176-4C46-990A-F98485B2A040}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation", "src\GameGate.TelegramBot\Presentation\Presentation.csproj", "{3E733B13-0A38-4469-8A21-E6222A6CE2A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\GameGate.TelegramBot\Bot\Application.csproj", "{07AAABCA-EC1F-4EEF-BF9B-38FF5F2C0424}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,6 +117,22 @@ Global
 		{8A478036-6BCA-498A-8CB4-ACF321FCB27D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A478036-6BCA-498A-8CB4-ACF321FCB27D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A478036-6BCA-498A-8CB4-ACF321FCB27D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BECA35A0-CE60-46DB-B66D-6A11970B7E83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BECA35A0-CE60-46DB-B66D-6A11970B7E83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BECA35A0-CE60-46DB-B66D-6A11970B7E83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BECA35A0-CE60-46DB-B66D-6A11970B7E83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86B5057C-8176-4C46-990A-F98485B2A040}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86B5057C-8176-4C46-990A-F98485B2A040}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86B5057C-8176-4C46-990A-F98485B2A040}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86B5057C-8176-4C46-990A-F98485B2A040}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E733B13-0A38-4469-8A21-E6222A6CE2A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E733B13-0A38-4469-8A21-E6222A6CE2A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E733B13-0A38-4469-8A21-E6222A6CE2A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E733B13-0A38-4469-8A21-E6222A6CE2A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07AAABCA-EC1F-4EEF-BF9B-38FF5F2C0424}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07AAABCA-EC1F-4EEF-BF9B-38FF5F2C0424}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07AAABCA-EC1F-4EEF-BF9B-38FF5F2C0424}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07AAABCA-EC1F-4EEF-BF9B-38FF5F2C0424}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,6 +156,11 @@ Global
 		{D043B33B-9667-4C14-8998-2FF8AC9F367F} = {E9B17463-8585-4A1B-AE8E-BAE6210D3094}
 		{16F91AC7-AD00-4D92-B006-091878BE9690} = {E9B17463-8585-4A1B-AE8E-BAE6210D3094}
 		{8A478036-6BCA-498A-8CB4-ACF321FCB27D} = {E9B17463-8585-4A1B-AE8E-BAE6210D3094}
+		{AB76CFF1-30E9-4E7F-9CF9-214982C8F925} = {BF2ED3F7-1BFF-45BF-A357-A633414EC348}
+		{BECA35A0-CE60-46DB-B66D-6A11970B7E83} = {AB76CFF1-30E9-4E7F-9CF9-214982C8F925}
+		{86B5057C-8176-4C46-990A-F98485B2A040} = {AB76CFF1-30E9-4E7F-9CF9-214982C8F925}
+		{3E733B13-0A38-4469-8A21-E6222A6CE2A8} = {AB76CFF1-30E9-4E7F-9CF9-214982C8F925}
+		{07AAABCA-EC1F-4EEF-BF9B-38FF5F2C0424} = {AB76CFF1-30E9-4E7F-9CF9-214982C8F925}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B362F76C-A0D0-49FC-9193-EB84DB1EBCBE}

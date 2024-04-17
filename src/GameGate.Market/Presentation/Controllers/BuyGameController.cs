@@ -2,13 +2,13 @@
 using Application.Commands.BuyGameDirectly;
 using Application.Commands.MakeOrder;
 using Application.Commands.Refund;
-using Application.Commands.SellGame;
 using Application.Commands.SellGameByOrder;
-using Application.Commands.SellGameDirectly;
 using Application.Queries.Games.GetAll;
 using Application.Queries.Games.GetWithFilters;
 using Application.Queries.Library;
 using Application.Queries.Orders;
+using Application.Queries.Orders.GetByName;
+using Application.Queries.Orders.GetMy;
 using Domain.Games;
 using Domain.Orders;
 using MediatR;
@@ -100,6 +100,11 @@ public class BuyGameController : Controller
     {
         var cookieString = GetCookie();
        await _sender.Send(new RefundCommand(refundDto.GameName,cookieString));
+    }
+    [HttpGet("GetOrdersByName")]
+    public async Task <IActionResult> GetOrderByNameAsync([FromQuery]string name)
+    {
+        return Json (await _sender.Send(new GetOrdersByNameQuery(name)));
     }
     private string GetCookie()
     {

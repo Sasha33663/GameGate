@@ -15,7 +15,7 @@ public class UserService : IUserService
         _signInManager = signInManager;
         _roleManager = roleManager;
     }
-
+    
     public async Task UserRegisterAsync(string userName, string password, CancellationToken cancellationToken)
     {
         var user = new User
