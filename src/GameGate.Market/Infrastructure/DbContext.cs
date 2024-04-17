@@ -1,5 +1,5 @@
-﻿using Domain;
-using Domain.Games;
+﻿using Domain.Games;
+using Domain.Orders;
 using Domain.Users;
 using Microsoft.EntityFrameworkCore;
 

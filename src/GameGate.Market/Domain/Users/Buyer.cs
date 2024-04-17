@@ -1,7 +1,9 @@
-﻿namespace Domain.Users;
+﻿using Domain.Games;
+
+namespace Domain.Users;
 
 public sealed class Buyer : User
 {
-    public List<string?> BoughtGames { get; set; }
+    public List<Game?> BoughtGames { get; set; }
     public decimal Money { get; set; }
 }

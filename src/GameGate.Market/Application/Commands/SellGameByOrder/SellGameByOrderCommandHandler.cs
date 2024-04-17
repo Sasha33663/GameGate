@@ -7,28 +7,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Commands.SellGame;
-public class SellGameCommandHandler : IRequestHandler<SellGameByOrderCommand>
+namespace Application.Commands.SellGameByOrder;
+public class SellGameByOrderCommandHandler : IRequestHandler<SellGameByOrderCommand>
 {
     private readonly IMarketRepository _marketRepository;
     private readonly IGamesHttpClient _gamesHttpClient;
-    public SellGameCommandHandler(IMarketRepository marketRepository,IGamesHttpClient gamesHttpClient)
+    public SellGameByOrderCommandHandler(IMarketRepository marketRepository, IGamesHttpClient gamesHttpClient)
     {
         _marketRepository = marketRepository;
         _gamesHttpClient = gamesHttpClient;
     }
     public async Task Handle(SellGameByOrderCommand request, CancellationToken cancellationToken)
     {
-        var order= _marketRepository.GetOrdersById(request.orderId);
-        var buyer=   _marketRepository.GetBuyerById(order.BuyerId);
-        var seller=   _marketRepository.GetSeller(order.SellerId);
-        var game =await  _gamesHttpClient.GetGameByNameAsync(order.GameName);
+        var order = _marketRepository.GetOrdersById(request.orderId);
+        var buyer = _marketRepository.GetBuyerById(order.BuyerId);
+        var seller = _marketRepository.GetSeller(order.SellerId);
+        var game = await _gamesHttpClient.GetGameByNameAsync(order.GameName);
         if (order.GameName == null || buyer.Money <= 0 || buyer.Money < order.Bid || order.Bid < game.Price.PriceMinValue)
         {
             throw new Exception("Something wrong!");
         }
+        game.RefaundDateTime = DateTime.UtcNow;
         seller.SoldGames?.Add(game);
         seller.Games?.Remove(game);
+        buyer.BoughtGames.Add(game);
         var gain = buyer.Money - order.Bid;
         seller.Money += gain;
         await _gamesHttpClient.DeleteGameAsync(order.GameName);

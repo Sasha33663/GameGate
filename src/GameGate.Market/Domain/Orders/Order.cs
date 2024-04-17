@@ -1,6 +1,6 @@
 ﻿using Domain.Users;
 
-namespace Domain;
+namespace Domain.Orders;
 
 public sealed class Order
 {

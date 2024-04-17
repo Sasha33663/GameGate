@@ -1,4 +1,4 @@
-﻿using Domain;
+﻿using Domain.Orders;
 using Domain.Users;
 
 namespace Application.Common.Interfaces;

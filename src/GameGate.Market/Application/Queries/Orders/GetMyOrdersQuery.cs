@@ -1,4 +1,4 @@
-﻿using Domain;
+﻿using Domain.Orders;
 using MediatR;
 
 namespace Application.Queries.Orders;

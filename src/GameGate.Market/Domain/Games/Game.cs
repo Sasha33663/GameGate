@@ -8,6 +8,7 @@ public class Game
     public string GameId { get; set; }
     public string AuthorId { get; set; }
     public string AuthorName { get; set; }
+    public DateTime RefaundDateTime { get; set; }
     public Filters Filters { get; set; }
     public GamePrice Price { get; set; }
 

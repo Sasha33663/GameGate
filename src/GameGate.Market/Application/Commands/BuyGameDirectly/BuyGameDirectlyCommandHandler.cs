@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces;
+using Domain.Games;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Commands.SellGameDirectly;
+namespace Application.Commands.BuyGameDirectly;
 public class BuyGameDirectlyCommandHandler : IRequestHandler<BuyGameDirectlyCommand>
 {
     private readonly IMarketRepository _marketRepository;
@@ -23,7 +24,8 @@ public class BuyGameDirectlyCommandHandler : IRequestHandler<BuyGameDirectlyComm
     public async Task Handle(BuyGameDirectlyCommand request, CancellationToken cancellationToken)
     {
         var game = await _gamesHttpClient.GetGameByNameAsync(request.GameName);
-        if(game.Price.IsDirectly ==false)
+        game.RefaundDateTime = DateTime.UtcNow;
+        if (game.Price.IsDirectly == false)
         {
             throw new Exception("You can't buy this game directly, make an order");
         }
@@ -36,6 +38,7 @@ public class BuyGameDirectlyCommandHandler : IRequestHandler<BuyGameDirectlyComm
         }
         seller.SoldGames?.Add(game);
         seller.Games?.Remove(game);
+        buyer.BoughtGames.Add(game);
         var gain = buyer.Money - request.Bid;
         seller.Money += gain;
         await _gamesHttpClient.DeleteGameAsync(game.GameName);

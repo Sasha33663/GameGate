@@ -1,6 +1,6 @@
 ﻿using Application.Common.Interfaces;
-using Domain;
 using Domain.Games;
+using Domain.Orders;
 using Domain.Users;
 
 namespace Infrastructure.Repositories;
@@ -16,7 +16,7 @@ public class MarketRepository : IMarketRepository
     {
         var buyer = new Buyer
         {
-            BoughtGames = new List<string>(),
+            BoughtGames = new List<Game?>(),
             Money = 10000,
             UserName = user.UserName,
             Email = user.Email,

@@ -1,5 +1,5 @@
 ﻿using Application.Common.Interfaces;
-using Domain;
+using Domain.Orders;
 using Domain.Users;
 using MediatR;
 
