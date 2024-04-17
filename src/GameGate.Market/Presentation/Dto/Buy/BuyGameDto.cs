@@ -1,4 +1,4 @@
-﻿namespace Presentation.Dto;
+﻿namespace Presentation.Dto.Buy;
 
 public sealed class BuyGameDto
 {

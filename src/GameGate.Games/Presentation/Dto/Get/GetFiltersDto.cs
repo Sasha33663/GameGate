@@ -1,10 +1,8 @@
-﻿namespace Presentation.Dto;
+﻿namespace Presentation.Dto.Get;
 
-public sealed class GetGameDto
+public class GetFiltersDto
 {
     public string? GameName { get; set; }
-    public string? Description { get; set; }
-    public string? GamePreviewUrl { get; set; }
     public string? Creator { get; set; }
     public string? Genre { get; set; }
     public string? Kind { get; set; }

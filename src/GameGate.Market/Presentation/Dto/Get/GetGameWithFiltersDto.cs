@@ -1,6 +1,6 @@
-﻿namespace Presentation.Dto;
+﻿namespace Presentation.Dto.Get;
 
-public class GetFiltersDto
+public class GetGameWithFiltersDto
 {
     public string? GameName { get; set; }
     public string? Creator { get; set; }

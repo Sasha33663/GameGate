@@ -13,11 +13,9 @@ public class GetMyOrdersQueryHandler : IRequestHandler<GetMyOrdersQuery, List<Or
 {
     private readonly IMarketRepository _marketRepository;
     private readonly IAuthHttpClient _authHttpClient;
-    private readonly IGamesHttpClient _gamesHttpClient;
-    public GetMyOrdersQueryHandler(IMarketRepository marketRepository, IGamesHttpClient gamesHttp, IAuthHttpClient authHttpClient)
+    public GetMyOrdersQueryHandler(IMarketRepository marketRepository, IAuthHttpClient authHttpClient)
     {
         _marketRepository = marketRepository;
-        _gamesHttpClient = gamesHttp;
         _authHttpClient = authHttpClient;
     }
     public async Task<List<Order?>> Handle(GetMyOrdersQuery request, CancellationToken cancellationToken)

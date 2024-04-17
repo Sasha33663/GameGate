@@ -1,5 +1,7 @@
 ﻿using Application.Commands;
 using Application.Commands.MakeOrder;
+using Application.Commands.SellGame;
+using Application.Commands.SellGameDirectly;
 using Application.Queries.Games.GetAll;
 using Application.Queries.Games.GetWithFilters;
 using Application.Queries.Orders;
@@ -8,7 +10,9 @@ using Domain.Games;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.Dto;
+using Presentation.Dto.Buy;
+using Presentation.Dto.Get;
+using Presentation.Dto.Sell;
 
 namespace Presentation.Controllers;
 
@@ -73,11 +77,16 @@ public class BuyGameController : Controller
         return await _sender.Send(new GetMyOrdersQuery(cookieString));
     }
     //[Authorize(Roles = "Seller")]
-
-    [HttpPost("SellGame")]
-    public async Task SelllGameAsync([FromForm]SellGameDto sellGameDto)
+    [HttpPost("SellGameByOrder")]
+    public async Task SelllGameByOrderAsync([FromForm]SellGameByOrderDto sellGameDto)
     {
-        await _sender.Send(new SellGameCommand(sellGameDto.OrderId)); 
+        await _sender.Send(new SellGameByOrderCommand(sellGameDto.OrderId)); 
     }
-    
+    [HttpPost("BuyDirectly")]
+    public async Task BuyGameDirectlyAsync([FromForm]BuyGameDirectlyDto directlyDto)
+    {
+        var cookie = HttpContext.Request.Cookies.FirstOrDefault(c => c.Key.StartsWith(".AspNetCore.Identity.Application"));
+        var cookieString = $"{cookie.Key}={cookie.Value}";
+        await _sender.Send(new BuyGameDirectlyCommand(directlyDto.GameName,directlyDto.Bid, cookieString));
+    }  
 }

@@ -3,17 +3,15 @@ using Domain;
 using Domain.Games;
 using Domain.Users;
 
-namespace Infrastructure.MarketRepository;
+namespace Infrastructure.Repositories;
 
 public class MarketRepository : IMarketRepository
 {
     private readonly Database _marketDatabase;
-
     public MarketRepository(Database database)
     {
         _marketDatabase = database;
     }
-
     public async Task<Buyer> CreateBuyerAsync(Buyer user)
     {
         var buyer = new Buyer
@@ -58,13 +56,13 @@ public class MarketRepository : IMarketRepository
 
     public Order GetOrdersById(Guid orderId)
     {
-        return  _marketDatabase.Orders.FirstOrDefault(x => x.OrderId == orderId);
+        return _marketDatabase.Orders.FirstOrDefault(x => x.OrderId == orderId);
     }
 
     public Buyer GetBuyerById(string buyerId)
     {
-        var user= _marketDatabase.Buyers.FirstOrDefault(x => x.UserId == buyerId);
-        var buyer =new Buyer
+        var user = _marketDatabase.Buyers.FirstOrDefault(x => x.UserId == buyerId);
+        var buyer = new Buyer
         {
             UserId = user.UserId,
             BoughtGames = user.BoughtGames,
@@ -74,7 +72,7 @@ public class MarketRepository : IMarketRepository
             Games = user.Games,
             PhoneNumber = user.PhoneNumber,
             Role = user.Role,
-            
+
         };
         return buyer;
     }
@@ -88,5 +86,5 @@ public class MarketRepository : IMarketRepository
         return _marketDatabase.Sellers.FirstOrDefault(x => x.UserId == authorId);
     }
 
-   
+
 }

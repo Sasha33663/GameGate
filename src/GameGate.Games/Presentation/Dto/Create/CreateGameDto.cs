@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Presentation.Dto;
+namespace Presentation.Dto.Create;
 
 public class CreateGameDto
 {

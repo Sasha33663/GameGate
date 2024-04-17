@@ -8,7 +8,9 @@ using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.Dto;
+using Presentation.Dto.Create;
+using Presentation.Dto.Delete;
+using Presentation.Dto.Get;
 
 namespace Presentation.Controllers;
 

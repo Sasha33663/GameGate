@@ -18,7 +18,7 @@ public class Database : DbContext
         modelBuilder.Entity<Buyer>().HasKey(x => x.UserId);
         modelBuilder.Entity<Seller>().HasKey(x => x.UserId);
         modelBuilder.Entity<Order>().HasKey(x => x.OrderId);
-        modelBuilder.Entity<Game>().HasKey(x => x.GameName);
+        modelBuilder.Entity<Game>().HasKey(x => x.GameId);
         modelBuilder.Entity<Game>().OwnsOne(x => x.Filters);
         modelBuilder.Entity<Game>().OwnsOne(x => x.Price);
 

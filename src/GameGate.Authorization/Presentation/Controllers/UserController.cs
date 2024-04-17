@@ -1,6 +1,6 @@
 ﻿using Application;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.Dto;
+using Presentation.Dto.User;
 
 namespace Presentation.Controllers;
 

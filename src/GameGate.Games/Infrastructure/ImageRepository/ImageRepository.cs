@@ -6,9 +6,9 @@ namespace Infrastructure.ImageRepository;
 
 public class ImageRepository : IImageRepository
 {
-    private readonly Cloudinary _cloudinary; 
+    private static readonly Cloudinary _cloudinary; 
 
-    public ImageRepository() 
+    static ImageRepository() 
     {
         var account = new Account(
            "dllpfv6ya",

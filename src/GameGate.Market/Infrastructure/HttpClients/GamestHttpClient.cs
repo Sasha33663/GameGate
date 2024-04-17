@@ -103,7 +103,7 @@ public class GamestHttpClient : IGamesHttpClient
         var uri = requestMessage + new QueryBuilder(query);
         var content = new HttpRequestMessage
         {
-            Method = HttpMethod.Get,
+            Method = HttpMethod.Delete,
             RequestUri = new Uri(uri)
         };
         var responseMessage = await _httpClient.SendAsync(content);
