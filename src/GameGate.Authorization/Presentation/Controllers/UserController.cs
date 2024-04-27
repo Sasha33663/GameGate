@@ -4,7 +4,6 @@ using Presentation.Dto.User;
 
 namespace Presentation.Controllers;
 
-[ApiController]
 [Route("api/Auth/User")]
 public class UserController : Controller
 {
