@@ -17,27 +17,30 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using System.Collections;
 using System.Diagnostics.Eventing.Reader;
+using Telegram.Bot.Polling;
+using Telegram.Bot.Types.Enums;
+using Microsoft.AspNetCore.Mvc;
+using Telegram.Bots.Requests;
 
 namespace Application;
-class Program 
+class Program
 {
     private static readonly IMarketHttpClient _marketHttpClient;
-
-    static Program( )
+    static Program()
     {
-        _marketHttpClient = new MarketHttpClient(new HttpClient() );
+        _marketHttpClient = new MarketHttpClient(new HttpClient());
     }
-
     static void Main(string[] args)
     {
         var client = new TelegramBotClient("6625717406:AAEw29Fb_Brc3OuqiQuCqlbsS4TsuK_oumA");
-        client.StartReceiving(Update, Error);
+        client.StartReceiving(Update, Error );
         Console.ReadLine();
     }
     private static async Task Update(ITelegramBotClient client, Update update, CancellationToken token)
     {
-
+        
         var message = update.Message;
+        
         if (message.Text.Contains("/start"))
         {
             var replyMarkup = await TextAsync("Я продавец", "Я покупатель");
@@ -47,37 +50,49 @@ class Program
         }
         if (message.Text.Contains("Я продавец"))
         {
-            var order =await Seller(message, client);
+            var order = await Seller(message, client);
             await client.SendTextMessageAsync(message.Chat.Id, order);
         }
         if (message.Text.Contains("Я покупатель"))
         {
             await Buyer(message, client);
         }
-
     }
-    private static async Task <string> Seller(Message message, ITelegramBotClient client)
-     {
+    private static async Task<string> Seller(Message message, ITelegramBotClient client)
+    {
         var keyboard = new KeyboardButton[][]
         {
                      new KeyboardButton[] { "Посмотреть мои заказы","Проданные игры"}
         };
         var replyMarkup = new ReplyKeyboardMarkup(keyboard);
         await client.SendTextMessageAsync(message.Chat.Id, "Выбирите действие:", replyMarkup: replyMarkup);
-       var choice = await client.GetUpdatesAsync();
-        var lastMessage = choice.Last();
-        var choiceText = lastMessage.Message.Text;
-        if (choiceText.Contains("Посмотреть мои заказы"))
+        var action= await GetLastUpdateAsync(client, message);
+        if (action.Contains("Посмотреть мои заказы"))
         {
             await client.SendTextMessageAsync(message.Chat.Id, "Введите имя:");
-            var updatesA = await client.GetUpdatesAsync();
-            var last = updatesA.Last();
-            string? text = last.Message.Text;
-            var orders = await _marketHttpClient?.GetMyOrdersAsync(text);
+            var name = await GetLastUpdateAsync(client, message);
+            var orders = await _marketHttpClient?.GetMyOrdersAsync(name);
             return JsonConvert.SerializeObject(orders, Formatting.Indented);
-
         }
-        return "";
+        return "Неизвестно";
+    }
+    private static async Task<string> GetLastUpdateAsync(ITelegramBotClient client, Message message)
+    {
+        for (int i = 0; i <= 10; i++)
+
+         await Task.Delay(500);
+        var updates = await client.GetUpdatesAsync();
+        if (updates != null)
+        {
+            return updates.Last().Message.Text;
+        }
+        else
+        {
+            await client.SendTextMessageAsync(message.Chat.Id, "Введите команду:");
+            var newUpdates = await client.GetUpdatesAsync();
+            return newUpdates.Last().Message.Text;
+        }
+
     }
     private static async Task Buyer(Message message, ITelegramBotClient client)
     {
@@ -88,7 +103,6 @@ class Program
         var replyMarkup = new ReplyKeyboardMarkup(keyboard);
         await client.SendTextMessageAsync(message.Chat.Id, "Выбирите действие:", replyMarkup: replyMarkup);
     }
-   
     private static async Task<ReplyKeyboardMarkup?> TextAsync(string message1, string message2)
     {
         var keyboard = new KeyboardButton[][]
@@ -99,7 +113,7 @@ class Program
     }
     private static async Task Error(ITelegramBotClient client, Exception exception, CancellationToken token)
     {
+         
     }
-
 }
 

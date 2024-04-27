@@ -1,7 +1,5 @@
 ﻿using Domain.Users;
-
 namespace Domain.Orders;
-
 public sealed class Order
 {
     public Guid OrderId { get; set; }

@@ -10,7 +10,6 @@ namespace Infrastructure.HttpClients;
 public class MarketHttpClient : IMarketHttpClient
 {
     private readonly HttpClient _httpClient;
-
     public MarketHttpClient(HttpClient httpClient)
     {
         _httpClient = httpClient;
@@ -23,10 +22,8 @@ public class MarketHttpClient : IMarketHttpClient
             Method = HttpMethod.Get,
             RequestUri = new Uri(requestMessage)
         };
-
         var responseMessage = await _httpClient.SendAsync(content);
         responseMessage.EnsureSuccessStatusCode();
-
         var jsonResponse = await responseMessage.Content.ReadFromJsonAsync<IEnumerable<Game>>();
         var result = jsonResponse.Select(x => new Game
         {
@@ -40,7 +37,6 @@ public class MarketHttpClient : IMarketHttpClient
 
         return result.ToList();
     }
-    
     public  async Task<Game> GetGameByNameAsync(string gameName)
     {
         var requestMessage = "https://localhost:7037/api/games/GetGameByName";
@@ -75,7 +71,6 @@ public class MarketHttpClient : IMarketHttpClient
         var responseMessage = await _httpClient.SendAsync(content);
         responseMessage.EnsureSuccessStatusCode();   
     }
-
     public async Task <List<Game>> GetGamesByAuthor(string authorId)
     {
         var requestMessage = "https://localhost:7037/api/games/GetGameByAuthor";
@@ -106,7 +101,6 @@ public class MarketHttpClient : IMarketHttpClient
         });
         return result.ToList();
     }
-
     public async Task <List<Order?>>  GetMyOrdersAsync(string name)
     {
         var requestMessage = "https://localhost:7061/api/market/buy/GetOrdersByName";
@@ -120,7 +114,6 @@ public class MarketHttpClient : IMarketHttpClient
             Method = HttpMethod.Get,
             RequestUri = new Uri(uri)
         };
-
         var responseMessage = await _httpClient.SendAsync(content);
         responseMessage.EnsureSuccessStatusCode();
         var jsonResponse = await responseMessage.Content.ReadFromJsonAsync<IEnumerable<Order?>>();
@@ -135,8 +128,7 @@ public class MarketHttpClient : IMarketHttpClient
             OrderId=x.OrderId,
             SellerId=x.SellerId,
             SellerName=x.SellerName,
-            DateTime=x.DateTime
-            
+            DateTime=x.DateTime     
         });
         return result.ToList();
     }

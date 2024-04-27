@@ -98,7 +98,7 @@ public class BuyGameController : Controller
     [HttpPost("Refund")]  
     public async Task RefundAsync([FromForm]RefundDto refundDto)
     {
-        var cookieString = GetCookie();
+       var cookieString = GetCookie();
        await _sender.Send(new RefundCommand(refundDto.GameName,cookieString));
     }
     [HttpGet("GetOrdersByName")]
