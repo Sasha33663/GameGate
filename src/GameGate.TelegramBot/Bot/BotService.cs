@@ -52,7 +52,7 @@ class Program
         }
         if (message.Text.Contains("Я покупатель"))
         {
-            await Buyer(message, client);
+            await client.SendTextMessageAsync(message.Chat.Id, "Здесь ничего нету :)");
         }
 
     }
@@ -78,15 +78,6 @@ class Program
 
         }
         return "";
-    }
-    private static async Task Buyer(Message message, ITelegramBotClient client)
-    {
-        var keyboard = new KeyboardButton[][]
-        {
-                     new KeyboardButton[] { "Посмотреть мои заказы","Моя библиотека"}
-        };
-        var replyMarkup = new ReplyKeyboardMarkup(keyboard);
-        await client.SendTextMessageAsync(message.Chat.Id, "Выбирите действие:", replyMarkup: replyMarkup);
     }
    
     private static async Task<ReplyKeyboardMarkup?> TextAsync(string message1, string message2)
