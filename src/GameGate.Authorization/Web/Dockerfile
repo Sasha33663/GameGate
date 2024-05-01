@@ -9,14 +9,14 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/GameGate.Games/Web/Web/Web.csproj", "src/GameGate.Games/Web/Web/"]
-COPY ["src/GameGate.Games/Application/Application.csproj", "src/GameGate.Games/Application/"]
-COPY ["src/GameGate.Games/Domain/Domain.csproj", "src/GameGate.Games/Domain/"]
-COPY ["src/GameGate.Games/Infrastructure/Infrastructure.csproj", "src/GameGate.Games/Infrastructure/"]
-COPY ["src/GameGate.Games/Presentation/Presentation.csproj", "src/GameGate.Games/Presentation/"]
-RUN dotnet restore "./src/GameGate.Games/Web/Web/Web.csproj"
+COPY ["src/GameGate.Authorization/Web/Web.csproj", "src/GameGate.Authorization/Web/"]
+COPY ["src/GameGate.Authorization/Application/Application.csproj", "src/GameGate.Authorization/Application/"]
+COPY ["src/GameGate.Authorization/Domain/Domain.csproj", "src/GameGate.Authorization/Domain/"]
+COPY ["src/GameGate.Authorization/Infrastructure/Infrastructure.csproj", "src/GameGate.Authorization/Infrastructure/"]
+COPY ["src/GameGate.Authorization/Presentation/Presentation.csproj", "src/GameGate.Authorization/Presentation/"]
+RUN dotnet restore "./src/GameGate.Authorization/Web/Web.csproj"
 COPY . .
-WORKDIR "/src/src/GameGate.Games/Web/Web"
+WORKDIR "/src/src/GameGate.Authorization/Web"
 RUN dotnet build "./Web.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish

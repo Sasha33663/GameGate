@@ -29,12 +29,11 @@ public class Program
             .AddDefaultTokenProviders(); // Essential for authentication  //TODO: удалить комментарий
 
         var app = builder.Build();
-       
-        app.UseSwagger(c => c.RouteTemplate = "swagger/{documentname}/swagger.json")
-     .UseSwaggerUI(c =>
-     {
-         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Musbooking-Dev");
-     });
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.MapControllers();
