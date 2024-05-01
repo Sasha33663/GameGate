@@ -1,8 +1,6 @@
 ﻿using Domain;
 using Microsoft.AspNetCore.Identity;
-
 namespace Application;
-
 public class UserService : IUserService
 {
     private readonly UserManager<User> _userManager;

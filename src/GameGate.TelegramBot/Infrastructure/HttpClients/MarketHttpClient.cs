@@ -10,7 +10,7 @@ namespace Infrastructure.HttpClients;
 public class MarketHttpClient : IMarketHttpClient
 {
     private readonly HttpClient _httpClient;
-
+    private readonly string _address;
     public MarketHttpClient(HttpClient httpClient)
     {
         _httpClient = httpClient;

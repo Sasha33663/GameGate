@@ -9,17 +9,18 @@ using System.Runtime.InteropServices;
 
 namespace Infrastructure.HttpClients;
 
-public class GamestHttpClient : IGamesHttpClient
+public class GamesHttpClient : IGamesHttpClient
 {
     private readonly HttpClient _httpClient;
-
-    public GamestHttpClient(HttpClient httpClient)
+    private readonly string _address;
+    public GamesHttpClient(HttpClient httpClient, string address)
     {
         _httpClient = httpClient;
+        _address = address;
     }
     public async Task<List<Game>> GetAllGamesAsync()
     {
-        var requestMessage = "https://localhost:7037/api/games/GetAllGames";
+        var requestMessage = $"{_address}/api/games/GetAllGames";
         var content = new HttpRequestMessage
         {
             Method = HttpMethod.Get,
@@ -44,7 +45,7 @@ public class GamestHttpClient : IGamesHttpClient
     }
     public async Task<List<Game>> GetGamesWithFiltersAsync(FilteredGameDto filteredGame)
     {
-        var requestMessage = "https://localhost:7037/api/games/GetGameWithFilter";
+        var requestMessage = $"{_address}/api/games/GetGameWithFilter";
         var query = new Dictionary<string, string?>
         {
             ["GameName"] = filteredGame?.GameName ?? string.Empty,
@@ -76,7 +77,7 @@ public class GamestHttpClient : IGamesHttpClient
     }
     public  async Task<Game> GetGameByNameAsync(string gameName)
     {
-        var requestMessage = "https://localhost:7037/api/games/GetGameByName";
+        var requestMessage = $"{_address}/api/games/GetGameByName";
         var query = new Dictionary<string, string>
         {
             ["GameName"] = gameName
@@ -95,7 +96,7 @@ public class GamestHttpClient : IGamesHttpClient
 
     public async Task DeleteGameAsync(string gameName)
     {
-        var requestMessage = "https://localhost:7037/api/games/DeleteByName";
+        var requestMessage = $"{_address}/api/games/DeleteByName";
         var query = new Dictionary<string, string>
         {
             ["GameName"] = gameName
@@ -112,7 +113,7 @@ public class GamestHttpClient : IGamesHttpClient
 
     public async Task <List<Game>> GetGamesByAuthor(string authorId)
     {
-        var requestMessage = "https://localhost:7037/api/games/GetGameByAuthor";
+        var requestMessage = $"{_address}/api/games/GetGameByAuthor";
         var query = new Dictionary<string, string?>
         {
             ["authorId"] = authorId

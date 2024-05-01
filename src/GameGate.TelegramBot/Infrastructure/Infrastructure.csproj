@@ -11,6 +11,7 @@
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\..\GameGate.Market\Domain\Domain.csproj" />
+	  <ProjectReference Include="..\Domain\Domain.csproj" />
 	</ItemGroup>
+	
 </Project>

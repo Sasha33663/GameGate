@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  gamegate.api-gateway:
+    image: gamegate.apigateway:latest
+    ports:
+      - "7105:8080"
+  gamegate.auth:
+    image: gamegate.auth:latest
+    ports:
+      - "7250:8080"
+  gamegate.games:
+    image: gamegate.games:latest
+    ports:
+      - "7037:8080"
+  gamegate.market:
+    image: gamegate.market:latest
+    ports: 
+      - "7061:8080"
+  gamegate.telegram:
+    image: gamegate.telegram:latest
+    

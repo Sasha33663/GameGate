@@ -25,7 +25,7 @@ public class GameController : Controller
         _sender = sender;
     }
 
-    //[Authorize(Roles="Seller","Admin")] //TODO: удалить комментарий
+    //[Authorize(Roles="Seller","Admin")] 
     [HttpPost("Create")]
     public async Task CreateAsync([FromForm] CreateGameDto createGameDto, CancellationToken cancellationToken)
     {

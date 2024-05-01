@@ -7,6 +7,7 @@ using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Presentation.Controllers;
+using System.Net.Http;
 
 namespace Web;
 
@@ -23,20 +24,21 @@ public class Program
         {
             assembly.RegisterServicesFromAssembly(typeof(AssemblyReference).Assembly);
         });
-        builder.Services.AddHttpClient<IGamesHttpClient, GamestHttpClient>();
-        builder.Services.AddTransient<IGamesHttpClient, GamestHttpClient>();
-        builder.Services.AddHttpClient<IAuthHttpClient, AuthHttpClient>();
-        builder.Services.AddTransient<IAuthHttpClient, AuthHttpClient>();
         builder.Services.AddTransient<IMarketRepository, MarketRepository>();
         builder.Services.AddDbContext<Database>((options) => options.UseNpgsql(builder.Configuration.GetConnectionString("Database")), ServiceLifetime.Transient);
         builder.Services.AddHostedService<DeleteExpiresOrdersService>();
+        builder.Services.AddHttpClient<IAuthHttpClient, AuthHttpClient>(httpClient => new AuthHttpClient(httpClient, builder.Configuration.GetValue<string>("AuthServerUrl")));
+        builder.Services.AddHttpClient<IGamesHttpClient, GamesHttpClient>(httpClient => new GamesHttpClient(httpClient, builder.Configuration.GetValue<string>("GameServerUrl")));
 
         var app = builder.Build();
-        if (app.Environment.IsDevelopment())
+
+        app.UseSwagger();
+        app.UseSwaggerUI(c =>
         {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Market service");
+            c.RoutePrefix = string.Empty;
+        });
+
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.MapControllers();

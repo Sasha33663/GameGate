@@ -8,7 +8,6 @@ using Application.Queries.Games.GetWithFilters;
 using Application.Queries.Library;
 using Application.Queries.Orders;
 using Application.Queries.Orders.GetByName;
-using Application.Queries.Orders.GetMy;
 using Domain.Games;
 using Domain.Orders;
 using MediatR;
@@ -70,13 +69,7 @@ public class BuyGameController : Controller
         var cookieString = GetCookie();
         return Json(await _sender.Send(new MakeOrderCommand(buyGameDto.GameName, buyGameDto.Bid, cookieString)));
     }
-    //[Authorize(Roles = "Seller")]
-    [HttpGet("GetMyOrders")]
-    public async Task <List<Order?>> GetOrdersAsync()
-    {
-        var cookieString = GetCookie();
-        return await _sender.Send(new GetMyOrdersQuery(cookieString));
-    }
+
     //[Authorize(Roles = "Seller")]
     [HttpPost("SellGameByOrder")]
     public async Task SelllGameByOrderAsync([FromForm]SellGameByOrderDto sellGameDto)

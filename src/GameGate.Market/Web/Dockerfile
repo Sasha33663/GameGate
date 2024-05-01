@@ -14,8 +14,6 @@ COPY ["src/GameGate.Market/Application/Application.csproj", "src/GameGate.Market
 COPY ["src/GameGate.Market/Domain/Domain.csproj", "src/GameGate.Market/Domain/"]
 COPY ["src/GameGate.Market/Infrastructure/Infrastructure.csproj", "src/GameGate.Market/Infrastructure/"]
 COPY ["src/GameGate.Market/Presentation/Presentation.csproj", "src/GameGate.Market/Presentation/"]
-COPY ["src/GameGate.Games/Application/Application.csproj", "src/GameGate.Games/Application/"]
-COPY ["src/GameGate.Games/Domain/Domain.csproj", "src/GameGate.Games/Domain/"]
 RUN dotnet restore "./src/GameGate.Market/Web/Web.csproj"
 COPY . .
 WORKDIR "/src/src/GameGate.Market/Web"

@@ -27,7 +27,7 @@ public class UserController : Controller
     }
 
     //[Authorize(Roles ="Admin")] 
-    [HttpPost("Delete")]
+    [HttpDelete("Delete")]
     public async Task DeleteAsync([FromBody] DeleteDto deleteDto, CancellationToken cancellationToken)
     {
         await _userService.UserDeleteAsync(deleteDto.UserName, deleteDto.Password, cancellationToken);

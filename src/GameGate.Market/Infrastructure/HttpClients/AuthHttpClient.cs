@@ -14,10 +14,11 @@ namespace Infrastructure.HttpClients;
 public class AuthHttpClient : IAuthHttpClient
 {
     private readonly HttpClient _httpClient;
-
-    public AuthHttpClient(HttpClient httpClient)
+    private readonly string _address;
+    public AuthHttpClient(HttpClient httpClient, string address)
     {
         _httpClient = httpClient;
+        _address = address;
     }
     public async Task<Buyer> GetBuyerByCookieAsync(string cookie)
     {
@@ -47,7 +48,7 @@ public class AuthHttpClient : IAuthHttpClient
     }
     public async Task<Seller> GetSellerByCookieAsync(string cookie)
     {
-        var requestMessage = "https://localhost:7250/api/Auth/User/GetUser";
+        var requestMessage = $"{_address}/api/Auth/User/GetUser";
         var content = new HttpRequestMessage
         {
             Method = HttpMethod.Get,
@@ -74,7 +75,7 @@ public class AuthHttpClient : IAuthHttpClient
 
     public async Task<Seller> GetSellerByIdAsync(string userId)
     {
-        var requestMessage = "https://localhost:7250/api/Auth/User/GetUserById";
+        var requestMessage = $"{_address}/api/Auth/User/GetUserById";
         var query = new Dictionary<string, string>
         {
             ["UserId"] = userId

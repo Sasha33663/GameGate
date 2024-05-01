@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Ocelot.DependencyInjection;
@@ -19,6 +20,7 @@ public class Program
 
         var app = builder.Build();
 
+        app.UseRewriter(new RewriteOptions().AddRedirect("^$", "swagger"));
         await app.UseSwaggerForOcelotUI(opt =>
         {
             opt.PathToSwaggerGenerator = "/swagger/docs";

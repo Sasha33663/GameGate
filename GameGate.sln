@@ -47,13 +47,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\GameG
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\GameGate.TelegramBot\Domain\Domain.csproj", "{86B5057C-8176-4C46-990A-F98485B2A040}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation", "src\GameGate.TelegramBot\Presentation\Presentation.csproj", "{3E733B13-0A38-4469-8A21-E6222A6CE2A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation", "src\GameGate.TelegramBot\Presentation\Presentation.csproj", "{3E733B13-0A38-4469-8A21-E6222A6CE2A8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "src\GameGate.TelegramBot\Bot\Application.csproj", "{07AAABCA-EC1F-4EEF-BF9B-38FF5F2C0424}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GameGate.ApiGateWay", "GameGate.ApiGateWay", "{B68D835B-18BF-47D7-8635-AF779A27A978}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateWay", "src\GameGate.ApiGateWay\ApiGateWay\ApiGateWay.csproj", "{E48E799C-8AD8-4EAA-9C5E-61C6E3C5D2D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateWay", "src\GameGate.ApiGateWay\ApiGateWay\ApiGateWay.csproj", "{E48E799C-8AD8-4EAA-9C5E-61C6E3C5D2D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
